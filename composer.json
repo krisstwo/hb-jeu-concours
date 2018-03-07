@@ -1,8 +1,15 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "coffee-and-brackets/happy-break-jeu-concours",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "",
+    "authors": [
+        {
+            "name": "Mohamed KRISTOU",
+            "email": "krisstwo@gmail.com",
+            "role": "Lead Developer"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle"
