@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@HappybreakJeuConcoursBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -19,6 +20,8 @@ framework:
     csrf_protection: ~
     validation: { enable_annotations: true }
     #serializer: { enable_annotations: true }
+    templating:
+        engines: ['twig']
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
@@ -35,6 +38,93 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+
+# Assets
+assetic:
+    debug: "%kernel.debug%"
+    use_controller: '%kernel.debug%'
+    bundles: [HappybreakJeuConcoursBundle]
+   #java: /usr/bin/java
+    java: C:\Program Files\Java\jdk1.8.0_92\bin\java.exe
+    filters:
+        cssrewrite: ~
+        cssembed:
+            jar: "%kernel.root_dir%/Resources/java/cssembed.jar"
+            yui_js:
+            jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
+        yui_css:
+            jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
+        lessphp:
+            file: "%kernel.root_dir%/../vendor/oyejorge/less.php/lessc.inc.php"
+            apply_to: ".less$"
+    assets:
+        jquery_js:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/jquery/jquery.min.js"
+            output: js/jquery.min.js
+        jqueryui_js:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/jqueryui/jquery-ui.min.js"
+            output: js/jquery-ui.min.js
+        jqueryui_fr_js:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/jqueryui/ui/i18n/datepicker-fr.js"
+            output: js/datepicker-fr.js
+        jqueryui_icones:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/jqueryui/themes/base/images/ui-icons_444444_256x240.png"
+            output: css/images/ui-icons_444444_256x240.png
+        jqueryui_icones_bis:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/jqueryui/themes/base/images/ui-icons_555555_256x240.png"
+            output: css/images/ui-icons_555555_256x240.png
+        jqueryui_css:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/jqueryui/themes/base/jquery-ui.min.css"
+            output: css/jquery-ui.min.css
+
+        bootstrap_css:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less"
+            filters:
+                - lessphp
+                - cssrewrite
+            output: css/bootstrap.css
+
+        bootstrap_js:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/affix.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/alert.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/button.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/carousel.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/collapse.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/dropdown.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/modal.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/tooltip.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/popover.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/scrollspy.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/tab.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/js/transition.js"
+            filters: [?yui_js]
+            output: js/bootstrap.js
+        fonts_glyphicons_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.eot"
+            output: "fonts/glyphicons-halflings-regular.eot"
+        fonts_glyphicons_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.svg"
+            output: "fonts/glyphicons-halflings-regular.svg"
+        fonts_glyphicons_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.ttf"
+            output: "fonts/glyphicons-halflings-regular.ttf"
+        fonts_glyphicons_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.woff"
+
+            output: "fonts/glyphicons-halflings-regular.woff"
+
 
 # Doctrine Configuration
 doctrine:

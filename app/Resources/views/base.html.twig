@@ -3,11 +3,20 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}"/>
+            {% stylesheets '@HappybreakJeuConcoursBundle/Resources/public/css/*' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
+    <body style="background-image: url('{% image '@HappybreakJeuConcoursBundle/Resources/public/img/main-bg.jpg' %}{{ asset_url }}{% endimage %}')">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

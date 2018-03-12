@@ -1,0 +1,91 @@
+/**
+ * Coffee & Brackets software studio
+ * @author Mohamed KRISTOU <krisstwo@gmail.com>.
+ */
+
+body {
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    color: #61514e;
+    font-size: 14px;
+    font-family: 'Source Sans Pro',sans-serif;
+}
+
+a {
+    text-decoration: underline;
+    color: inherit;
+}
+
+a:hover {
+    color: #f7a600;
+    text-decoration: none;
+}
+
+/**
+BOOTSTRAP TWEAKS
+ */
+
+a.btn {
+    text-decoration: none;
+}
+
+.btn.btn-hb {
+    background: rgb(247, 166, 0);
+    color: #ffffff;
+    border: none;
+}
+
+.btn.btn-upper {
+    text-transform: uppercase;
+}
+
+.btn.btn-bold {
+    font-weight: bold;
+}
+
+.btn.btn-lg {
+    font-size: 2em;
+}
+
+/**
+CUSTOM ELEMENTS
+ */
+
+.content.step-1 {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.content.step-1 {
+    text-align: center;
+}
+
+.step-1 .polar-bg {
+    margin-left: -190px;
+    margin-right: -190px;
+}
+
+.step-1 .polar-content {
+    max-width: 650px;
+    margin: auto;
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+.text-red {
+    color: #b72c10;
+}
+
+.text-size-1 {
+    font-size: 1.8em;
+    line-height: 1.2em;
+}
+
+.text-size-2 {
+    font-size: 2.8em;
+    line-height: 1em;
+}
+
+.hr-small {
+    width: 104px;
+    border-top: solid 3px #61514e;
+}
