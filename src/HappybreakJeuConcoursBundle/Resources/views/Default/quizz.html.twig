@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="content">
+            <a href="#" class="btn-back"><i class="fa fa-chevron-left"></i> Retour</a>
+            <div class="question">
+                <div class="question-title">
+                    <span class="question-title-rank">1/4</span>
+                    <span class="question-title-text">Quel est le montant de la réduction dont vous pouvez bénéficier grâce à la carte Happybreak dans près de 200 hôtels ?</span>
+                </div>
+                <div class="question-options row">
+                    <div class="question-option col-md-3">
+                        <input type="radio" class="magic-radio" id="question-1-option-1" name="question-1" value="10"
+                               checked> <label for="question-1-option-1">10%</label>
+                    </div>
+                    <div class="question-option col-md-3">
+                        <input type="radio" class="magic-radio" id="question-1-option-2" name="question-1" value="20"
+                               checked> <label for="question-1-option-2">20%</label>
+                    </div>
+                    <div class="question-option col-md-3">
+                        <input type="radio" class="magic-radio" id="question-1-option-3" name="question-1" value="50"
+                               checked> <label for="question-1-option-3">50%</label>
+                    </div>
+                    <div class="question-hint col-md-3">
+                        <a href="#">Besoin d’un indice ?</a>
+                    </div>
+                </div>
+            </div>
+            <div class="question">
+                <div class="question-title">
+                    <span class="question-title-rank">2/4</span>
+                    <span class="question-title-text">Quel est le montant de la réduction dont vous pouvez bénéficier grâce à la carte Happybreak dans près de 200 hôtels ?</span>
+                </div>
+                <div class="question-options row">
+                    <div class="question-option col-md-3">
+                        <div class="question-option-illustration" style="background-image: url('https://www.happybreak.com/sites/default/files/styles/255_230/public/images/sliderhotel/hot182p002.jpg?itok=_ZGzaX0v');">
+                        </div>
+                        <input type="radio" class="magic-radio" id="question-1-option-1" name="question-1" value="10"
+                               checked> <label for="question-1-option-1">Des hôtels de charme et de caractère</label>
+                    </div>
+                    <div class="question-option col-md-3">
+                        <div class="question-option-illustration" style="background-image: url('https://www.happybreak.com/sites/default/files/styles/255_230/public/images/sliderhotel/hot182p002.jpg?itok=_ZGzaX0v');">
+                        </div>
+                        <input type="radio" class="magic-radio" id="question-1-option-2" name="question-1" value="20"
+                               checked> <label for="question-1-option-2">Des hôtels 1 étoile</label>
+                    </div>
+                    <div class="question-option col-md-3">
+                        <div class="question-option-illustration" style="background-image: url('https://www.happybreak.com/sites/default/files/styles/255_230/public/images/sliderhotel/hot182p002.jpg?itok=_ZGzaX0v');">
+                        </div>
+                        <input type="radio" class="magic-radio" id="question-1-option-3" name="question-1" value="50"
+                               checked> <label for="question-1-option-3">50%</label>
+                    </div>
+                    <div class="question-hint col-md-3">
+                        <a href="#">Besoin d’un indice ?</a>
+                    </div>
+                </div>
+            </div>
+
+            <p>&nbsp;</p>
+            <p class="text-center">
+                <a href="{{ path('happybreak_jeu_concours_quizz') }}" class="btn btn-hb btn-lg btn-upper btn-bold">Je
+                    valide mes réponses</a>
+            </p>
+
+            <p class="text-center">
+                <a href="#">Voir le règlement</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

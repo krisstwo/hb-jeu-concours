@@ -9,6 +9,7 @@ body {
     color: #61514e;
     font-size: 14px;
     font-family: 'Source Sans Pro',sans-serif;
+    padding: 20px 0;
 }
 
 a {
@@ -47,12 +48,29 @@ a.btn {
     font-size: 2em;
 }
 
+.btn-back {
+    display: block;
+    font-style: italic;
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.btn-back i {
+    color: rgb(247, 166, 0);
+    background: #ffffff;
+    border-radius: 2px;
+    padding: 6px 10px;
+    margin-right: 16px;
+}
+
 /**
 CUSTOM ELEMENTS
  */
 
-.content.step-1 {
+.content {
     background: rgba(255, 255, 255, 0.8);
+    padding: 30px;
 }
 
 .content.step-1 {
@@ -88,4 +106,67 @@ CUSTOM ELEMENTS
 .hr-small {
     width: 104px;
     border-top: solid 3px #61514e;
+}
+
+/**
+QUIZ STYLES
+ */
+
+.question {
+    margin-bottom: 25px;
+}
+
+.question-title {
+    overflow: hidden;
+}
+
+.question-title-rank {
+    background: rgb(247, 166, 0);
+    color: white;
+    font-size: 1.8em;
+    padding: 0 0.5em;
+    margin-right: 20px;
+}
+
+.question-title-text {
+    font-size: 2em;
+}
+
+.question-options {
+    margin-top: 20px;
+}
+
+.question-option {
+    text-align: center;
+}
+
+.question-hint {
+    text-align: right;
+}
+
+.question-option-illustration {
+    width: 100%;
+    height: 200px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 1em;
+}
+
+/**
+MAGIC CHECKBOXES STYLES
+ */
+
+.magic-radio + label {
+    display: inline-block;
+}
+
+.magic-radio + label:before,
+.magic-radio:checked + label:before {
+    border-color: rgb(247, 166, 0);
+    background: #ffffff;
+}
+
+.magic-radio + label:after {
+    background: rgb(247, 166, 0);
 }

@@ -14,4 +14,9 @@ class DefaultController extends Controller
     {
         return $this->render('HappybreakJeuConcoursBundle:Default:index.html.twig');
     }
+
+    public function quizzAction()
+    {
+        return $this->render('HappybreakJeuConcoursBundle:Default:quizz.html.twig');
+    }
 }

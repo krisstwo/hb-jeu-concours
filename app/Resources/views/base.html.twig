@@ -5,6 +5,7 @@
         <title>{% block title %}Grand jeu HAPPYBREAK{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('bundles/bmatznerfontawesome/css/font-awesome.min.css') }}" />
             {% stylesheets '@HappybreakJeuConcoursBundle/Resources/public/css/*' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
