@@ -44,6 +44,10 @@ a.btn {
     font-weight: bold;
 }
 
+.btn.btn-md {
+    font-size: 1.4em;
+}
+
 .btn.btn-lg {
     font-size: 2em;
 }
@@ -91,6 +95,10 @@ CUSTOM ELEMENTS
 
 .text-red {
     color: #b72c10;
+}
+
+.text-yellow {
+    color: rgb(247, 166, 0);
 }
 
 .text-size-1 {
@@ -154,6 +162,20 @@ QUIZ STYLES
 }
 
 /**
+FORM STYLES
+ */
+
+.form-horizontal .control-label {
+    text-align: left;
+    font-weight: normal;
+}
+
+.form-control {
+    border-radius: 0;
+    border: 1px solid rgb(247, 166, 0);
+}
+
+/**
 MAGIC CHECKBOXES STYLES
  */
 
@@ -169,4 +191,18 @@ MAGIC CHECKBOXES STYLES
 
 .magic-radio + label:after {
     background: rgb(247, 166, 0);
+}
+
+.magic-checkbox + label:before {
+    border-color: rgb(247, 166, 0);
+    background: #ffffff;
+}
+
+.magic-checkbox:checked + label:before {
+    border: rgb(247, 166, 0);
+    background: #ffffff;
+}
+
+.magic-checkbox + label:after {
+    border-color: rgb(247, 166, 0);
 }

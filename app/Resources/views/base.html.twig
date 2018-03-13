@@ -18,6 +18,9 @@
             <script src="{{ asset('js/jquery.min.js') }}"></script>
             <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
             <script src="{{ asset('js/bootstrap.js') }}"></script>
+            {% javascripts '@HappybreakJeuConcoursBundle/Resources/public/js/*' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% endblock %}
     </body>
 </html>
