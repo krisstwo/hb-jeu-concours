@@ -9,7 +9,7 @@ body {
     color: #61514e;
     font-size: 14px;
     font-family: 'Source Sans Pro',sans-serif;
-    padding: 20px 0;
+    padding: 40px 0;
 }
 
 a {
@@ -77,13 +77,13 @@ CUSTOM ELEMENTS
     padding: 30px;
 }
 
-.content.step-1 {
+.step-1 {
     text-align: center;
 }
 
 .step-1 .polar-bg {
-    margin-left: -190px;
-    margin-right: -190px;
+    margin-left: -220px;
+    margin-right: -220px;
 }
 
 .step-1 .polar-content {

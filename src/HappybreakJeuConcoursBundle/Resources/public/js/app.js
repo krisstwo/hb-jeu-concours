@@ -20,10 +20,18 @@
         };
 
         /**
-         * Quizz page
+         * Welcome page
          */
 
-        stepTo(2);
+        $('.btn-start-quizz').click(function (e) {
+            e.preventDefault();
+
+            stepTo(2);
+        });
+
+        /**
+         * Quizz page
+         */
 
         $('.step-2 .btn-back').click(function (e) {
             e.preventDefault();

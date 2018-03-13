@@ -14,11 +14,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('HappybreakJeuConcoursBundle:Default:index.html.twig');
-    }
-
-    public function quizzAction()
-    {
         $questions = $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question')->findAll();
 
         return $this->render('HappybreakJeuConcoursBundle:Default:quizz.html.twig', array(

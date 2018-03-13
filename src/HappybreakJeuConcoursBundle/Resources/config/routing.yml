@@ -1,7 +1,3 @@
 happybreak_jeu_concours_homepage:
     path:     /
     defaults: { _controller: HappybreakJeuConcoursBundle:Default:index }
-
-happybreak_jeu_concours_quizz:
-    path:     /quizz
-    defaults: { _controller: HappybreakJeuConcoursBundle:Default:quizz }
