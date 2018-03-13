@@ -28,42 +28,46 @@
                 <div class="step step-2" style="display: none;">
                     <a href="#" class="btn-back"><i class="fa fa-chevron-left"></i> Retour</a>
 
-                    {% for i, question in questions %}
-                        <div class="question">
-                            <div class="question-title">
-                                <span class="question-title-rank">{{ i + 1 }}/{{ questions|length }}</span>
-                                <span class="question-title-text">{{ question.title|raw }}</span>
-                            </div>
-
-                            {% if question.options|length %}
-                                <div class="question-options row">
-                                    {% for option in question.options %}
-                                        <div class="question-option col-md-3">
-                                            {% if option.illustration|length and 'http' in option.illustration %}
-                                                <div class="question-option-illustration"
-                                                     style="background-image: url('{{ option.illustration }}');">
-                                                </div>
-                                            {% endif %}
-                                            <input type="radio" class="magic-radio"
-                                                   id="question-{{ question.id }}-option-{{ option.id }}"
-                                                   name="question-{{ question.id }}"
-                                                   value="option-{{ option.id }}"> <label
-                                                    for="question-{{ question.id }}-option-{{ option.id }}">{{ option.title }}</label>
-                                        </div>
-                                    {% endfor %}
-                                    {% if question.hint|length %}
-                                        <div class="question-hint col-md-3">
-                                            {% if 'http' in question.hint %}
-                                                <a href="{{ question.hint|raw }}">Besoin d’un indice ?</a>
-                                            {% else %}
-                                                <span>{{ question.hint|raw }}</span>
-                                            {% endif %}
-                                        </div>
-                                    {% endif %}
+                    <form class="form-quizz">
+                        {% for i, question in questions %}
+                            <div class="question">
+                                <div class="question-title">
+                                    <span class="question-title-rank">{{ i + 1 }}/{{ questions|length }}</span>
+                                    <span class="question-title-text">{{ question.title|raw }}</span>
                                 </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
+
+                                {% if question.options|length %}
+                                    <div class="question-options row">
+                                        {% for option in question.options %}
+                                            <div class="question-option col-md-3">
+                                                {% if option.illustration|length and 'http' in option.illustration %}
+                                                    <div class="question-option-illustration"
+                                                         style="background-image: url('{{ option.illustration }}');">
+                                                    </div>
+                                                {% endif %}
+                                                <input type="radio" class="magic-radio"
+                                                       id="question-{{ question.id }}-option-{{ option.id }}"
+                                                       name="question-{{ question.id }}"
+                                                       value="option-{{ option.id }}"> <label
+                                                        for="question-{{ question.id }}-option-{{ option.id }}">{{ option.title }}</label>
+                                            </div>
+                                        {% endfor %}
+                                        {% if question.hint|length %}
+                                            <div class="question-hint col-md-3">
+                                                {% if 'http' in question.hint %}
+                                                    <a href="{{ question.hint|raw }}">Besoin d’un indice ?</a>
+                                                {% else %}
+                                                    <span>{{ question.hint|raw }}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                    </form>
+                    <div class="alert alert-danger form-quizz-error" style="display: none;">Vous devez choisir une réponse pour toutes les questions</div>
 
                     <p>&nbsp;</p>
                     <p class="text-center">
@@ -83,7 +87,7 @@
 
                     <div class="row">
 
-                        <form class="form-horizontal col-md-8 col-md-offset-2">
+                        <form class="form-register form-horizontal col-md-8 col-md-offset-2">
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Civilité :</label>
                                 <div class="col-sm-8">
@@ -140,6 +144,7 @@
                                     J’accepte les conditions du jeu concours.
                                 </label>
                             </div>
+                            <div class="alert alert-danger form-register-error" style="display: none;">Merci de bien renseigner tous les champs requis.</div>
                         </form>
                     </div>
 

@@ -68,6 +68,26 @@ a.btn {
     margin-right: 16px;
 }
 
+.alert {
+    border-radius: 0;
+}
+
+.datepicker table tr td.active,
+.datepicker table tr td.active:hover {
+    background-color: rgb(247, 166, 0);
+    background-image: -moz-linear-gradient(to bottom, rgb(255, 221, 0),rgb(247, 166, 0));
+    background-image: -ms-linear-gradient(to bottom,rgb(255, 221, 0),rgb(247, 166, 0));
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(rgb(255, 221, 0)),to(rgb(247, 166, 0)));
+    background-image: -webkit-linear-gradient(to bottom,rgb(255, 221, 0),rgb(247, 166, 0));
+    background-image: -o-linear-gradient(to bottom,rgb(255, 221, 0),rgb(247, 166, 0));
+    background-image: linear-gradient(to bottom,rgb(255, 221, 0),rgb(247, 166, 0));
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgb(255, 221, 0)', endColorstr='rgb(247, 166, 0)', GradientType=0);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+;
+}
+
 /**
 CUSTOM ELEMENTS
  */
@@ -198,6 +218,10 @@ MAGIC CHECKBOXES STYLES
     background: #ffffff;
 }
 
+.has-error .magic-checkbox + label:before {
+    border-color: #a94442;
+}
+
 .magic-checkbox:checked + label:before {
     border: rgb(247, 166, 0);
     background: #ffffff;
@@ -205,4 +229,9 @@ MAGIC CHECKBOXES STYLES
 
 .magic-checkbox + label:after {
     border-color: rgb(247, 166, 0);
+}
+
+.magic-checkbox, .magic-radio {
+    display: block;
+    visibility: hidden;
 }
