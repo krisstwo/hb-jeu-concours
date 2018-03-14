@@ -41,9 +41,9 @@
                                         {% for option in question.options %}
                                             <div class="question-option col-md-3">
                                                 {% if option.illustration|length and 'http' in option.illustration %}
-                                                    <div class="question-option-illustration"
-                                                         style="background-image: url('{{ option.illustration }}');">
-                                                    </div>
+                                                    <label class="question-option-illustration"
+                                                         style="background-image: url('{{ option.illustration }}');" for="question-{{ question.id }}-option-{{ option.id }}">
+                                                    </label>
                                                 {% endif %}
                                                 <input type="radio" class="magic-radio"
                                                        id="question-{{ question.id }}-option-{{ option.id }}"
