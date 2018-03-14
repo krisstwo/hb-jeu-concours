@@ -87,17 +87,17 @@
 
                     <div class="row">
 
-                        <form class="form-register form-horizontal col-md-8 col-md-offset-2">
+                        <form class="form-register form-horizontal col-md-8 col-md-offset-2" action="{{ path('happybreak_jeu_concours_ajax_submit_quizz') }}">
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Civilité :</label>
                                 <div class="col-sm-8">
-                                    <input type="radio" id="gender_female"
-                                           class="magic-radio" name="gender"
-                                           value="female"> <label for="gender_female">Madame</label>
+                                    <input type="radio" id="civility_madame"
+                                           class="magic-radio" name="civility"
+                                           value="Mme"> <label for="civility_madame">Madame</label>
                                     <label></label>
-                                    <input type="radio" id="gender_male"
-                                           class="magic-radio" name="gender"
-                                           value="male"> <label for="gender_male">Monsieur</label>
+                                    <input type="radio" id="civility_mister"
+                                           class="magic-radio" name="civility"
+                                           value="Mr"> <label for="civility_mister">Monsieur</label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -149,7 +149,7 @@
                     </div>
 
                     <p class="text-center">
-                        <a href="#" class="btn btn-hb btn-lg btn-upper btn-bold btn-submit-form">Je participe au jeu</a>
+                        <a href="#" class="btn btn-hb btn-lg btn-upper btn-bold btn-submit-form" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>">Je participe au jeu</a>
                         <br>
                         <br>
                         <a href="#">Voir le règlement</a>

@@ -68,10 +68,6 @@ a.btn {
     margin-right: 16px;
 }
 
-.alert {
-    border-radius: 0;
-}
-
 .datepicker table tr td.active,
 .datepicker table tr td.active:hover {
     background-color: rgb(247, 166, 0);
@@ -85,14 +81,17 @@ a.btn {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgb(255, 221, 0)', endColorstr='rgb(247, 166, 0)', GradientType=0);
     border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-;
+}
+
+.modal-content > .alert {
+    margin-bottom: 0;
 }
 
 /**
 CUSTOM ELEMENTS
  */
 
-.content {
+.container  > .content {
     background: rgba(255, 255, 255, 0.8);
     padding: 30px;
 }

@@ -7,6 +7,26 @@
 
     $(document).ready(function () {
 
+        $(document).ajaxError(function (event, xhr, settings) {
+            if (xhr.statusText === 'abort')
+                return;
+
+            $('#modal-flash-error .content').text('Une erreur inattendue est survenue.');
+            $('#modal-flash-error').modal('show');
+        });
+
+        $(document).ajaxSuccess(function (event, xhr, settings) {
+
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+                if (xhr.responseJSON.details && xhr.responseJSON.details.length) {
+                    $('#modal-flash-error .content').html('<h5>' + xhr.responseJSON.error + '</h5>' + (xhr.responseJSON.details).replace(/(?:\r\n|\r|\n)/g, '<br>'));
+                } else {
+                    $('#modal-flash-error .content').text(xhr.responseJSON.error);
+                }
+                $('#modal-flash-error').modal('show');
+            }
+        });
+
         /**
          * Declarations
          */
@@ -76,7 +96,7 @@
 
         $('form.form-register #birthday').datepicker({
             language: 'fr',
-            startDate: new Date()
+            endDate: new Date()
         });
 
         $.validator.addMethod(
@@ -89,7 +109,7 @@
 
         $('form.form-register').validate({
             rules: {
-                gender: {
+                civility: {
                     required: true
                 },
                 last_name: {
@@ -107,8 +127,8 @@
                     email: true
                 },
                 phone: {
-                    required: true,
-                    regex: /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/
+                    required: true
+                    // regex: /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/
                 },
                 cgv: {
                     required: true
@@ -137,9 +157,28 @@
 
         $('.btn-submit-form').click(function (e) {
             e.preventDefault();
+            var btn = this;
 
-            if($('form.form-register').valid())
-                stepTo(4);
+            var form = $('form.form-register');
+            if (form.valid()) {
+                $(btn).button('loading');
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: $('form.form-quizz, form.form-register').serialize(),
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result && result.error)
+                            return;
+
+                        stepTo(4);
+                    },
+                    complete: function () {
+                        $(btn).button('reset');
+                    }
+                });
+            }
+
         });
 
     });
