@@ -6,3 +6,7 @@ services:
         class: HappybreakJeuConcoursBundle\Service\Registration
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@service_container"
+            - "@logger"
+        tags:
+            - { name: monolog.logger, channel: app }

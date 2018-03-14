@@ -7,8 +7,11 @@
 namespace HappybreakJeuConcoursBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use DrewM\MailChimp\MailChimp;
 use HappybreakJeuConcoursBundle\Entity\Registration as RegistrationEntity;
 use HappybreakJeuConcoursBundle\Entity\RegistrationQuizzValue;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\Container;
 
 class Registration
 {
@@ -18,13 +21,25 @@ class Registration
     private $em;
 
     /**
+     * @var Container
+     */
+    private $container;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * Registration constructor.
      *
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, Container $container, LoggerInterface $logger)
     {
-        $this->em = $em;
+        $this->em        = $em;
+        $this->container = $container;
+        $this->logger    = $logger;
     }
 
     public function createRegistration($data)
@@ -57,5 +72,25 @@ class Registration
         }
 
         $this->em->flush();
+
+        if ($this->container->hasParameter('mailchimp_enable') && $this->container->getParameter('mailchimp_enable')) {
+            $MailChimp = new MailChimp($this->container->getParameter('mailchimp_api_key'));
+
+            $result = $MailChimp->post(sprintf('lists/%s/members', $this->container->getParameter('mailchimp_list_id')),
+                array(
+                    'email_address' => $registration->getEmail(),
+                    'status' => 'subscribed',
+                    'merge_fields' => array(
+                        'FNAME' => $registration->getFirstName(),
+                        'LNAME' => $registration->getLastName()
+                    )
+                ));
+
+            if ($MailChimp->success()) {
+                $this->logger->debug('MailChimp : ' . print_r($result, true));
+            } else {
+                $this->logger->error('MailChimp : ' . $MailChimp->getLastError());
+            }
+        }
     }
 }
