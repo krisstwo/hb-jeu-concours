@@ -42,6 +42,11 @@ class Registration
         $this->logger    = $logger;
     }
 
+    /**
+     * @param $data
+     *
+     * @return RegistrationEntity
+     */
     public function createRegistration($data)
     {
         $registration = new RegistrationEntity();
@@ -92,5 +97,7 @@ class Registration
                 $this->logger->error('MailChimp : ' . $MailChimp->getLastError());
             }
         }
+
+        return $registration;
     }
 }

@@ -5,3 +5,6 @@ happybreak_jeu_concours_homepage:
 happybreak_jeu_concours_ajax_submit_quizz:
     path:     /ajax-submit-quizz
     defaults: { _controller: HappybreakJeuConcoursBundle:Default:ajaxSubmitQuizz }
+happybreak_jeu_concours_ajax_email_share:
+    path:     /ajax-email-share
+    defaults: { _controller: HappybreakJeuConcoursBundle:Default:ajaxEmailShare }

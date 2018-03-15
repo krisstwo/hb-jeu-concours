@@ -199,10 +199,21 @@
                                             <img src="{% image '@HappybreakJeuConcoursBundle/Resources/public/img/chance-mail.png' %}{{ asset_url }}{% endimage %}" width="175" height="59"/>
                                         </div>
                                         <div class="col-sm-5">
-                                            <label for="share-email">Email :</label>
-                                            <input type="text" class="form-control" name="share-email" id="share-email">
+                                            <form class="form-share-email"
+                                                  action="{{ path('happybreak_jeu_concours_ajax_email_share') }}">
+                                                <label for="share-email">Email :</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="share-email"
+                                                           id="share-email">
+                                                </div>
+                                                <input type="hidden" name="registration" value="">
+                                            </form>
+                                            <div class="alert alert-danger form-share-email-error"
+                                                 style="display: none;">Merci de renseigner une adresse email valide.
+                                            </div>
                                             <p>&nbsp;</p>
-                                            <a href="#" class="btn btn-hb btn-md btn-upper btn-bold">Envoyer</a>
+                                            <a href="#" class="btn btn-hb btn-md btn-upper btn-bold btn-share-email"
+                                               data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>">Envoyer</a>
                                         </div>
                                     </div>
                                 </div>

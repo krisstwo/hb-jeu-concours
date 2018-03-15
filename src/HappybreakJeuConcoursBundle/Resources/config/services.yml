@@ -2,6 +2,15 @@ services:
 #    happybreak_jeu_concours.example:
 #        class: HappybreakJeuConcoursBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    happybreak_jeu_concours.mailer:
+        class: HappybreakJeuConcoursBundle\Service\Mailer
+        arguments:
+            - "@mailer"
+            - "@templating"
+    happybreak_jeu_concours.hasher:
+            class: HappybreakJeuConcoursBundle\Service\Hasher
+            arguments:
+                - "@service_container"
     happybreak_jeu_concours.registration:
         class: HappybreakJeuConcoursBundle\Service\Registration
         arguments:
@@ -10,3 +19,13 @@ services:
             - "@logger"
         tags:
             - { name: monolog.logger, channel: app }
+
+    happybreak_jeu_concours.share:
+            class: HappybreakJeuConcoursBundle\Service\Share
+            arguments:
+                - "@doctrine.orm.entity_manager"
+                - "@service_container"
+                - "@logger"
+                - "@happybreak_jeu_concours.mailer"
+            tags:
+                - { name: monolog.logger, channel: app }

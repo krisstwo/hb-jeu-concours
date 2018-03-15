@@ -6,6 +6,8 @@
 
 namespace HappybreakJeuConcoursBundle\Controller;
 
+use HappybreakJeuConcoursBundle\Exception\ExistingShare;
+use HappybreakJeuConcoursBundle\Form\EmailShare;
 use HappybreakJeuConcoursBundle\Form\Quizz;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -40,22 +42,65 @@ class DefaultController extends Controller
         if ($request->isXmlHttpRequest()) {
             /**
              * @var $registrationService \HappybreakJeuConcoursBundle\Service\Registration
-             */
-            $registrationService = $this->get('happybreak_jeu_concours.registration');
-
-            /**
+             * @var $hasherService \HappybreakJeuConcoursBundle\Service\Hasher
              * @var Form $form
              */
-            $form = $this->get('form.factory')->createNamedBuilder('', Quizz::class, array(),
+            $registrationService = $this->get('happybreak_jeu_concours.registration');
+            $hasherService       = $this->get('happybreak_jeu_concours.hasher');
+            $form                = $this->get('form.factory')->createNamedBuilder('', Quizz::class, array(),
                 array('questionRepository' => $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question'), 'allow_extra_fields' => true))->getForm();
+
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
 
-                $registrationService->createRegistration($data);
+                $registration = $registrationService->createRegistration($data);
 
-                return new JsonResponse($data);
+                return new JsonResponse(array('registration' => $hasherService->getHasher()->encode($registration->getId())));
+            } else {
+                return new JsonResponse(array(
+                    'error' => 'Données invalides',
+                    'details' => (string)$form->getErrors(true)
+                ));
+            }
+        }
+
+        return new Response("Action not allowed", 400);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function ajaxEmailShareAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            /**
+             * @var $shareService \HappybreakJeuConcoursBundle\Service\Share
+             */
+            $shareService = $this->get('happybreak_jeu_concours.share');
+
+            /**
+             * @var Form $form
+             */
+            $form = $this->get('form.factory')->createNamedBuilder('', EmailShare::class, array(),
+                array('container' => $this->container, 'allow_extra_fields' => true))->getForm();
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+
+                try {
+                    $shareService->shareToEmail($data);
+                } catch (ExistingShare $e) {
+                    return new JsonResponse(array(
+                        'error' => 'Invitation déjà envoyée, merci de choisir une adresse email.'
+                    ));
+                }
+
+                return new JsonResponse(array());
             } else {
                 return new JsonResponse(array(
                     'error' => 'Données invalides',

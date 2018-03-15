@@ -171,6 +171,9 @@
                         if (result && result.error)
                             return;
 
+                        if (result.registration)
+                            $('input[name="registration"]').val(result.registration);
+
                         stepTo(4);
                     },
                     complete: function () {
@@ -181,6 +184,64 @@
 
         });
 
+        /**
+         * Share page
+         */
+
+        $('form.form-share-email').validate({
+            rules: {
+                'share-email': {
+                    required: true,
+                    email: true
+                }
+            },
+            onfocusout: false,
+            onkeyup: false,
+            errorClass: 'has-error',
+            validClass: '',
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').addClass(errorClass).removeClass(validClass);
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').removeClass(errorClass).addClass(validClass);
+            },
+            errorPlacement: function () {
+            },
+            showErrors: function (errorMap, errorList) {
+                $('.form-share-email-error').hide();
+                if (errorList.length)
+                    $('.form-share-email-error').show();
+
+                this.defaultShowErrors();
+            }
+        });
+
+        $('.btn-share-email').click(function (e) {
+            e.preventDefault();
+            var btn = this;
+            var form = $('form.form-share-email');
+
+            if (form.valid()) {
+                $(btn).button('loading');
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result && result.error)
+                            return;
+
+                        $('#modal-flash-success .content').html('Invitation envoyée !');
+                        $('#modal-flash-success').modal('show');
+                    },
+                    complete: function () {
+                        $(btn).button('reset');
+                    }
+                });
+            }
+
+        });
     });
 
 })(jQuery);

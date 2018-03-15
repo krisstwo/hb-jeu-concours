@@ -14,10 +14,17 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: ~
     mailer_password: ~
+    mailer_delivery_addresses:
+        - krisstwo@gmail.com
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
 
+    # MailChimp
     mailchimp_enable: false
     mailchimp_api_key: ~
     mailchimp_list_id: ~
+
+    # Share
+    share_email_from_address : ~
+    hashids_salt : happybreak
