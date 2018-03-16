@@ -119,7 +119,6 @@
                     required: true
                 },
                 birthday: {
-                    required: true,
                     frenchDate: true
                 },
                 email: {

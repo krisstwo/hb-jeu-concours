@@ -20,7 +20,7 @@
                             <p>&nbsp;</p>
                             <a href="#" class="btn btn-hb btn-lg btn-upper btn-bold btn-start-quizz">Je participe au quizz</a>
                             <p>&nbsp;</p>
-                            <p>*Dans la limite de 1 nuit d’hôtels par semaine pendant 52 semaines</p>
+                            <p>*Dans la limite de 1 nuit d’hôtel par semaine pendant 52 semaines</p>
                             <a href="#">Voir le règlement</a>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                                         {% if question.hint|length %}
                                             <div class="question-hint col-md-3">
                                                 {% if 'http' in question.hint %}
-                                                    <a href="{{ question.hint|raw }}">Besoin d’un indice ?</a>
+                                                    <a href="{{ question.hint|raw }}" target="_blank">Besoin d’un indice ?</a>
                                                 {% else %}
                                                     <span>{{ question.hint|raw }}</span>
                                                 {% endif %}
@@ -67,7 +67,7 @@
                         {% endfor %}
 
                     </form>
-                    <div class="alert alert-danger form-quizz-error" style="display: none;">Vous devez choisir une réponse pour toutes les questions</div>
+                    <div class="alert alert-danger form-quizz-error" style="display: none;">Veuillez choisir une réponse pour chacune des questions</div>
 
                     <p>&nbsp;</p>
                     <p class="text-center">
@@ -89,7 +89,7 @@
 
                         <form class="form-register form-horizontal col-md-8 col-md-offset-2" action="{{ path('happybreak_jeu_concours_ajax_submit_quizz') }}">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">Civilité :</label>
+                                <label class="col-sm-4 control-label">Civilité* :</label>
                                 <div class="col-sm-8">
                                     <input type="radio" id="civility_madame"
                                            class="magic-radio" name="civility"
@@ -101,19 +101,19 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="first_name" class="col-sm-4 control-label">Prénom :</label>
+                                <label for="first_name" class="col-sm-4 control-label">Prénom* :</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="first_name" name="first_name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="last_name" class="col-sm-4 control-label">Nom :</label>
+                                <label for="last_name" class="col-sm-4 control-label">Nom* :</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="last_name" name="last_name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="email" class="col-sm-4 control-label">Email :</label>
+                                <label for="email" class="col-sm-4 control-label">Email* :</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="email" name="email">
                                 </div>
@@ -125,7 +125,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="phone" class="col-sm-4 control-label">N° de téléphone :</label>
+                                <label for="phone" class="col-sm-4 control-label">N° de téléphone* :</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="phone" name="phone">
                                 </div>
@@ -141,7 +141,7 @@
                             <div class="form-group">
                                 <input type="checkbox" class="magic-checkbox" value="1" name="cgv" id="cgv">
                                 <label for="cgv">
-                                    J’accepte les conditions du jeu concours.
+                                    J’accepte les conditions du jeu concours et recevoir des communications liées au jeu.*
                                 </label>
                             </div>
                             <div class="alert alert-danger form-register-error" style="display: none;">Merci de bien renseigner tous les champs requis.</div>
@@ -153,6 +153,9 @@
                         <br>
                         <br>
                         <a href="#">Voir le règlement</a>
+                    </p>
+                    <p>
+                        *Champs requis obligatoire
                     </p>
                 </div>
 
