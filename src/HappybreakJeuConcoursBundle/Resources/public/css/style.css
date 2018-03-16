@@ -236,3 +236,14 @@ MAGIC CHECKBOXES STYLES
     display: block;
     visibility: hidden;
 }
+
+/**
+MEDIA QUERIES
+ */
+@media (max-width: 1199px) {
+    .step-1 .polar-bg {
+        background-image: none !important;
+        margin: 0;
+        min-height: initial;
+    }
+}
