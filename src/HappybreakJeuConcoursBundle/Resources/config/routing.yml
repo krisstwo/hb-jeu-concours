@@ -5,6 +5,19 @@ happybreak_jeu_concours_homepage:
 happybreak_jeu_concours_ajax_submit_quizz:
     path:     /ajax-submit-quizz
     defaults: { _controller: HappybreakJeuConcoursBundle:Default:ajaxSubmitQuizz }
+
 happybreak_jeu_concours_ajax_email_share:
     path:     /ajax-email-share
     defaults: { _controller: HappybreakJeuConcoursBundle:Default:ajaxEmailShare }
+
+happybreak_jeu_concours_facebook_login:
+    path:     /facebook/login
+    defaults: { _controller: HappybreakJeuConcoursBundle:Facebook:login }
+
+happybreak_jeu_concours_facebook_callback:
+    path:     /facebook/callback
+    defaults: { _controller: HappybreakJeuConcoursBundle:Facebook:callback }
+
+happybreak_jeu_concours_facebook_logout:
+    path:     /facebook/logout
+    defaults: { _controller: HappybreakJeuConcoursBundle:Facebook:logout }

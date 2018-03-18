@@ -6,9 +6,11 @@
 
 namespace HappybreakJeuConcoursBundle\Controller;
 
+use Facebook\Exceptions\FacebookSDKException;
 use HappybreakJeuConcoursBundle\Exception\ExistingShare;
 use HappybreakJeuConcoursBundle\Form\EmailShare;
 use HappybreakJeuConcoursBundle\Form\Quizz;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Form;
@@ -23,12 +25,44 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        /**
+         * @var $facebookService \HappybreakJeuConcoursBundle\Service\Facebook
+         */
+        $facebookService = $this->get('happybreak_jeu_concours.facebook');
+
         $questions = $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question')->findBy(array(
             'isEnabled' => true
         ));
 
+        $facebookUserData = null;
+        $facebookLogoutUrl = null;
+        try {
+            if ($facebookService->hasAccessToken()) {
+                $userGraph        = $facebookService->getUserData();
+                $facebookUserData = array(
+                    'gender' => $userGraph->getGender(),
+                    'name' => $userGraph->getName(),
+                    'first_name' => $userGraph->getFirstName(),
+                    'last_name' => $userGraph->getLastName(),
+                    'email' => $userGraph->getEmail(),
+                    'birthday' => $userGraph->getBirthday()->format('dmY')
+                );
+
+                $facebookLogoutUrl = $this->generateUrl('happybreak_jeu_concours_facebook_logout');
+            }
+        } catch (FacebookSDKException $e) {
+            /**
+             * @var $logger LoggerInterface
+             */
+            $logger = $this->container->get('logger');
+
+            $logger->error($e->getMessage());
+        }
+
         return $this->render('HappybreakJeuConcoursBundle:Default:quizz.html.twig', array(
-            'questions' => $questions
+            'questions' => $questions,
+            'facebookUserData' => $facebookUserData,
+            'facebookLogoutUrl' => $facebookLogoutUrl
         ));
     }
 

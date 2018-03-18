@@ -29,3 +29,8 @@ services:
                 - "@happybreak_jeu_concours.mailer"
             tags:
                 - { name: monolog.logger, channel: app }
+
+    happybreak_jeu_concours.facebook:
+            class: HappybreakJeuConcoursBundle\Service\Facebook
+            arguments:
+                - "@service_container"

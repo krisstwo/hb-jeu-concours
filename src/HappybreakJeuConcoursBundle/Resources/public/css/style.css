@@ -196,6 +196,16 @@ FORM STYLES
     border: 1px solid rgb(247, 166, 0);
 }
 
+.btn-fb, .btn-fb:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+}
+
+.btn-fb i {
+    float: left;
+    line-height: inherit;
+}
+
 /**
 MAGIC CHECKBOXES STYLES
  */
