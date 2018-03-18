@@ -71,9 +71,16 @@ class Registration
     private $sessionId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook_user_id", type="string", length=255)
+     */
+    private $facebookUserId;
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creation_date", type="datetime")
+     * @ORM\Column(name="creation_date", type="datetime", nullable=true)
      */
     private $creationDate;
 
@@ -269,6 +276,22 @@ class Registration
     public function setSessionId($sessionId)
     {
         $this->sessionId = $sessionId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookUserId()
+    {
+        return $this->facebookUserId;
+    }
+
+    /**
+     * @param string $facebookUserId
+     */
+    public function setFacebookUserId($facebookUserId)
+    {
+        $this->facebookUserId = $facebookUserId;
     }
 
     /**

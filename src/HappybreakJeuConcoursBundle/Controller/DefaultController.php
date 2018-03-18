@@ -45,7 +45,8 @@ class DefaultController extends Controller
                     'first_name' => $userGraph->getFirstName(),
                     'last_name' => $userGraph->getLastName(),
                     'email' => $userGraph->getEmail(),
-                    'birthday' => $userGraph->getBirthday()->format('dmY')
+                    'birthday' => $userGraph->getBirthday()->format('dmY'),
+                    'id' => $userGraph->getId()
                 );
 
                 $facebookLogoutUrl = $this->generateUrl('happybreak_jeu_concours_facebook_logout');

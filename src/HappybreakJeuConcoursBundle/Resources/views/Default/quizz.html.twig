@@ -172,6 +172,9 @@
                                 </label>
                             </div>
                             <div class="alert alert-danger form-register-error" style="display: none;">Merci de bien renseigner tous les champs requis.</div>
+                            {% if facebookUserData %}
+                                <input type="hidden" name="facebook_user_id" value="{{ facebookUserData.id }}">
+                            {% endif %}
                         </form>
                     </div>
 

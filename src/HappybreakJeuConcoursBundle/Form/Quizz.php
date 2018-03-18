@@ -50,6 +50,7 @@ class Quizz extends AbstractType
             ->add('birthday', null,
                 array('required' => true, 'constraints' => array(new DateTime(array('format' => 'd/m/Y')))))
             ->add('phone', null, array('required' => true))
+            ->add('facebook_user_id', null)
             ->add('cgv', null, array('required' => true));
     }
 
