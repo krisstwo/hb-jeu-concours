@@ -12,9 +12,13 @@ use HappybreakJeuConcoursBundle\Entity\Registration as RegistrationEntity;
 use HappybreakJeuConcoursBundle\Entity\RegistrationQuizzValue;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
 
 class Registration
 {
+    const QUIZZ_STATE_SESSION_KEY = 'QUIZZ_STATE_SESSION_KEY';
+
     /**
      * @var EntityManager
      */
@@ -40,6 +44,28 @@ class Registration
         $this->em        = $em;
         $this->container = $container;
         $this->logger    = $logger;
+    }
+
+    /**
+     * @param $data
+     */
+    public function saveQuizzState($data)
+    {
+        $session = new Session(new PhpBridgeSessionStorage());
+        ! $session->isStarted() && $session->start();
+
+        $session->set(self::QUIZZ_STATE_SESSION_KEY, $data);
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getQuizzCurrentState()
+    {
+        $session = new Session(new PhpBridgeSessionStorage());
+        ! $session->isStarted() && $session->start();
+
+        return $session->has(self::QUIZZ_STATE_SESSION_KEY) ? $session->get(self::QUIZZ_STATE_SESSION_KEY) : null;
     }
 
     /**
@@ -78,7 +104,17 @@ class Registration
             }
         }
 
+        // Doctrine transaction
         $this->em->flush();
+
+        // Reset saved quizz state
+
+        $session = new Session(new PhpBridgeSessionStorage());
+        ! $session->isStarted() && $session->start();
+
+        $session->remove(self::QUIZZ_STATE_SESSION_KEY);
+
+        //MailChimp
 
         if ($this->container->hasParameter('mailchimp_enable') && $this->container->getParameter('mailchimp_enable')) {
             $MailChimp = new MailChimp($this->container->getParameter('mailchimp_api_key'));

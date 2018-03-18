@@ -59,6 +59,15 @@
             stepTo(1);
         });
 
+        // Shortcut to form step if quizz has saved state and is valid
+        if (isQuizzStateDefined !== undefined && isQuizzStateDefined) {
+            if ($('form.form-quizz').valid()) {
+                stepTo(3);
+            } else {
+                stepTo(2); // Skip 1st step anyway
+            }
+        }
+
         $('form.form-quizz').validate({
             errorPlacement: function () {
             },
@@ -79,9 +88,27 @@
 
         $('.btn-validate-quizz').click(function (e) {
             e.preventDefault();
+            var form = $('form.form-quizz');
+            var btn = this;
 
-            if ($('form.form-quizz').valid())
-                stepTo(3);
+            if (form.valid()) {
+                $(btn).button('loading');
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result && result.error)
+                            return;
+
+                        stepTo(3);
+                    },
+                    complete: function () {
+                        $(btn).button('reset');
+                    }
+                });
+            }
         });
 
         /**

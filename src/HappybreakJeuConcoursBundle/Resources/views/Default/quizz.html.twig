@@ -28,7 +28,8 @@
                 <div class="step step-2" style="display: none;">
                     <a href="#" class="btn-back"><i class="fa fa-chevron-left"></i> Retour</a>
 
-                    <form class="form-quizz">
+                    <form class="form-quizz"
+                          action="{{ path('happybreak_jeu_concours_ajax_save_current_quizz_state') }}">
                         {% for i, question in questions %}
                             <div class="question">
                                 <div class="question-title">
@@ -48,7 +49,8 @@
                                                 <input type="radio" class="magic-radio"
                                                        id="question-{{ question.id }}-option-{{ option.id }}"
                                                        name="question-{{ question.id }}"
-                                                       value="option-{{ option.id }}"> <label
+                                                       value="option-{{ option.id }}" {{ quizzState and attribute(quizzState, 'question-' ~ question.id) is defined and (attribute(quizzState, 'question-' ~ question.id) == 'option-' ~ option.id) ? 'checked' }}>
+                                                <label
                                                         for="question-{{ question.id }}-option-{{ option.id }}">{{ option.title }}</label>
                                             </div>
                                         {% endfor %}
@@ -78,6 +80,11 @@
                     <p class="text-center">
                         <a href="#">Voir le règlement</a>
                     </p>
+                    {% if quizzState %}
+                        <script type="text/javascript">
+                            isQuizzStateDefined = true;
+                        </script>
+                    {% endif %}
                 </div>
 
                 <div class="step step-3" style="display: none;">

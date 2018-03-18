@@ -2,6 +2,10 @@ happybreak_jeu_concours_homepage:
     path:     /
     defaults: { _controller: HappybreakJeuConcoursBundle:Default:index }
 
+happybreak_jeu_concours_ajax_save_current_quizz_state:
+    path:     /ajax-submit-quizz
+    defaults: { _controller: HappybreakJeuConcoursBundle:Default:ajaxSaveCurrentQuizzState }
+
 happybreak_jeu_concours_ajax_submit_quizz:
     path:     /ajax-submit-quizz
     defaults: { _controller: HappybreakJeuConcoursBundle:Default:ajaxSubmitQuizz }

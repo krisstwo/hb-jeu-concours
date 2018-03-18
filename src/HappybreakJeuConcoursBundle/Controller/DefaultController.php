@@ -10,6 +10,7 @@ use Facebook\Exceptions\FacebookSDKException;
 use HappybreakJeuConcoursBundle\Exception\ExistingShare;
 use HappybreakJeuConcoursBundle\Form\EmailShare;
 use HappybreakJeuConcoursBundle\Form\Quizz;
+use HappybreakJeuConcoursBundle\Form\SaveQuizzState;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,14 +26,16 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $questions = $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question')->findBy(array(
+            'isEnabled' => true
+        ));
+
+        // Fetch Facebook user data if logged in
+
         /**
          * @var $facebookService \HappybreakJeuConcoursBundle\Service\Facebook
          */
         $facebookService = $this->get('happybreak_jeu_concours.facebook');
-
-        $questions = $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question')->findBy(array(
-            'isEnabled' => true
-        ));
 
         $facebookUserData = null;
         $facebookLogoutUrl = null;
@@ -60,11 +63,55 @@ class DefaultController extends Controller
             $logger->error($e->getMessage());
         }
 
+        // Fetch current quizz state if any
+        /**
+         * @var $registrationService \HappybreakJeuConcoursBundle\Service\Registration
+         */
+        $registrationService = $this->get('happybreak_jeu_concours.registration');
+
         return $this->render('HappybreakJeuConcoursBundle:Default:quizz.html.twig', array(
             'questions' => $questions,
+            'quizzState' => $registrationService->getQuizzCurrentState(),
             'facebookUserData' => $facebookUserData,
             'facebookLogoutUrl' => $facebookLogoutUrl
         ));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function ajaxSaveCurrentQuizzStateAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            /**
+             * @var $registrationService \HappybreakJeuConcoursBundle\Service\Registration
+             * @var $hasherService \HappybreakJeuConcoursBundle\Service\Hasher
+             * @var Form $form
+             */
+            $registrationService = $this->get('happybreak_jeu_concours.registration');
+            $hasherService       = $this->get('happybreak_jeu_concours.hasher');
+            $form                = $this->get('form.factory')->createNamedBuilder('', SaveQuizzState::class, array(),
+                array('questionRepository' => $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question'), 'allow_extra_fields' => true))->getForm();
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+
+                $registrationService->saveQuizzState($data);
+
+                return new JsonResponse(array());
+            } else {
+                return new JsonResponse(array(
+                    'error' => 'Données invalides',
+                    'details' => (string)$form->getErrors(true)
+                ));
+            }
+        }
+
+        return new Response("Action not allowed", 400);
     }
 
     /**
@@ -83,7 +130,10 @@ class DefaultController extends Controller
             $registrationService = $this->get('happybreak_jeu_concours.registration');
             $hasherService       = $this->get('happybreak_jeu_concours.hasher');
             $form                = $this->get('form.factory')->createNamedBuilder('', Quizz::class, array(),
-                array('questionRepository' => $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question'), 'allow_extra_fields' => true))->getForm();
+                array(
+                    'questionRepository' => $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question'),
+                    'allow_extra_fields' => true
+                ))->getForm();
 
             $form->handleRequest($request);
 
