@@ -60,7 +60,7 @@
         });
 
         // Shortcut to form step if quizz has saved state and is valid
-        if (isQuizzStateDefined !== undefined && isQuizzStateDefined) {
+        if (typeof isQuizzStateDefined !== 'undefined' && isQuizzStateDefined) {
             if ($('form.form-quizz').valid()) {
                 stepTo(3);
             } else {
