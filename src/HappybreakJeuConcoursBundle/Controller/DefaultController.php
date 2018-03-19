@@ -73,7 +73,8 @@ class DefaultController extends Controller
             'questions' => $questions,
             'quizzState' => $registrationService->getQuizzCurrentState(),
             'facebookUserData' => $facebookUserData,
-            'facebookLogoutUrl' => $facebookLogoutUrl
+            'facebookLogoutUrl' => $facebookLogoutUrl,
+            'recaptchaSiteKey' => $this->container->getParameter('recaptcha_site_key')
         ));
     }
 
@@ -131,7 +132,7 @@ class DefaultController extends Controller
             $hasherService       = $this->get('happybreak_jeu_concours.hasher');
             $form                = $this->get('form.factory')->createNamedBuilder('', Quizz::class, array(),
                 array(
-                    'questionRepository' => $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question'),
+                    'container' => $this->container,
                     'allow_extra_fields' => true
                 ))->getForm();
 

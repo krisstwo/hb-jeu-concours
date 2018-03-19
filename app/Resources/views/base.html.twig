@@ -11,6 +11,7 @@
             {% endstylesheets %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <script src='https://www.google.com/recaptcha/api.js?hl=fr'></script>
     </head>
     <body style="background-image: url('{% image '@HappybreakJeuConcoursBundle/Resources/public/img/main-bg.jpg' %}{{ asset_url }}{% endimage %}')">
         {% block body %}{% endblock %}
