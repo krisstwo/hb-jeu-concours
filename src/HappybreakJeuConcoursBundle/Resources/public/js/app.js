@@ -121,17 +121,46 @@
             stepTo(2);
         });
 
-        $('form.form-register #birthday').datepicker({
-            language: 'fr',
-            endDate: new Date()
-        });
-
         $.validator.addMethod(
             'frenchDate',
             function (value, element) {
-                return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+                return value.match(/^\d\d\d\d\-\d\d\-\d\d$/);
             },
-            "Merci de renseigner une date au format jj/mm/aaaa."
+            "Merci de renseigner une date au format jj/mm/aaaa." // Weirdly display format != value format for type date field
+        );
+
+        String.prototype.capitalize = function () {
+            return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+        };
+
+        $('form.form-register #first_name, form.form-register #last_name').change(function (e) {
+            $(this).val($(this).val().capitalize());
+        });
+
+        $('form.form-register #email').change(function (e) {
+            $(this).val($(this).val().toLowerCase());
+        });
+
+        $('form.form-register #phone').change(function (e) {
+            $(this).val($(this).val().split(/(\d{2})/).filter(function (value) {
+                return !/^\s*$/.test(value);
+            }).join(' '));
+        });
+
+        $.validator.addMethod(
+            'phoneNumber',
+            function (value, element) {
+                return /^\d{2}(?:[\s.-]*\d{2}){4}$/.test(value);
+            },
+            "Merci de renseigner un numéro de téléphone valide ex. 06 01 02 03 04"
+        );
+
+        $.validator.addMethod(
+            'phoneNumberCountryCode',
+            function (value, element) {
+                return /^\+?[0-9]{1,3}$/.test(value);
+            },
+            "Merci de renseigner un numéro de téléphone valide ex. 06 01 02 03 04"
         );
 
         $('form.form-register').validate({
@@ -152,9 +181,20 @@
                     required: true,
                     email: true
                 },
+                phone_country_code: {
+                    required: true,
+                    phoneNumberCountryCode: true,
+                    minlength: 3,
+                    maxlength: 4
+                },
                 phone: {
+                    required: true,
+                    phoneNumber: true,
+                    minlength: 14,
+                    maxlength: 14
+                },
+                'g-recaptcha-response': {
                     required: true
-                    // regex: /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/
                 },
                 cgv: {
                     required: true

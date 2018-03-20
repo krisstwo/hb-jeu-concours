@@ -206,6 +206,17 @@ FORM STYLES
     line-height: inherit;
 }
 
+#phone_country_code, #phone {
+    display: inline-block;
+    width: auto;
+}
+
+.phone-compound.form-group .form-group {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
 /**
 MAGIC CHECKBOXES STYLES
  */

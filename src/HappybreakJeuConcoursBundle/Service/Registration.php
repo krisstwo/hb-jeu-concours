@@ -81,7 +81,7 @@ class Registration
         $registration->setFirstName($data['first_name']);
         $registration->setLastName($data['last_name']);
         $registration->setEmail($data['email']);
-        $registration->setPhone($data['phone']);
+        $registration->setPhone($data['phone_country_code'] . ' ' . $data['phone']);
         if(!empty($data['facebook_user_id']))
             $registration->setFacebookUserId($data['facebook_user_id']);
         $registration->setIsNewsletterOptin(isset($data['newsletter']) ? true : false);

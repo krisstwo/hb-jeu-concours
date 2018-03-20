@@ -45,7 +45,7 @@ class Registration
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
 
@@ -73,14 +73,14 @@ class Registration
     /**
      * @var string
      *
-     * @ORM\Column(name="facebook_user_id", type="string", length=255)
+     * @ORM\Column(name="facebook_user_id", type="string", length=255, nullable=true, unique=true)
      */
     private $facebookUserId;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creation_date", type="datetime", nullable=true)
+     * @ORM\Column(name="creation_date", type="datetime")
      */
     private $creationDate;
 
