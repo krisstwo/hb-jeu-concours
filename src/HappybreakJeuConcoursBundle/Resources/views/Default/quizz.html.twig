@@ -41,7 +41,7 @@
                                     <div class="question-options row">
                                         {% for option in question.options %}
                                             <div class="question-option col-md-3">
-                                                {% if option.illustration|length and 'http' in option.illustration %}
+                                                {% if option.illustration|length %}
                                                     <label class="question-option-illustration"
                                                          style="background-image: url('{{ option.illustration }}');" for="question-{{ question.id }}-option-{{ option.id }}">
                                                     </label>
