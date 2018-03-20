@@ -6,7 +6,7 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}"/>
             <link rel="stylesheet" href="{{ asset('bundles/bmatznerfontawesome/css/font-awesome.min.css') }}" />
-            {% stylesheets '@HappybreakJeuConcoursBundle/Resources/public/css/*' %}
+            {% stylesheets 'bundles/happybreakjeuconcours/css/*' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}

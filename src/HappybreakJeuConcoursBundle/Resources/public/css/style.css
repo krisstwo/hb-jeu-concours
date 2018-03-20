@@ -252,8 +252,12 @@ MEDIA QUERIES
  */
 @media (max-width: 1199px) {
     .step-1 .polar-bg {
-        background-image: none !important;
+        background-image: url("../img/responsive-welcome-bg.png") !important;
+        background-position: top center;
+        background-repeat: no-repeat;
         margin: 0;
         min-height: initial;
+        margin-top: -91px;
+        padding-top: 182px;
     }
 }
