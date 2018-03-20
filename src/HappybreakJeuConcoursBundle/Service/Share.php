@@ -72,8 +72,9 @@ class Share
         $mailConfig = array(
             'to' => $data['share-email'],
             'template' => 'HappybreakJeuConcoursBundle:Email:share.html.twig',
-            'subject' => 'Invitation au Grand Jeu HAPPYBREAK',
+            'subject' => $this->container->getParameter('share_email_subject'),
             'from' => $this->container->getParameter('share_email_from_address'),
+            'fromName' => $this->container->getParameter('share_email_from_name'),
             'params' => array(
                 'registration' => $registration
             )

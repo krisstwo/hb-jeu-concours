@@ -27,6 +27,8 @@ parameters:
 
     # Share
     share_email_from_address : ~
+    share_email_from_name : ~
+    share_email_subject : ~
     hashids_salt : happybreak
 
     # Facebook

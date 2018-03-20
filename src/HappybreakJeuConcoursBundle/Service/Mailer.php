@@ -15,11 +15,13 @@ class Mailer {
     private $template;
     private $subject;
     private $from;
+    private $fromName;
     private $to;
     private $params;
     private $body;
 
-    public function __construct( $mailer, EngineInterface $templating ) {
+    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
+    {
 
         $this->mailer = $mailer;
         $this->templating = $templating;
@@ -38,7 +40,7 @@ class Mailer {
 
         $message = \Swift_Message::newInstance()
             ->setSubject( $this->subject )
-            ->setFrom( $this->from )
+            ->setFrom( $this->from, ! empty($this->fromName) ? $this->fromName : null )
             ->setTo( $this->to )
             ->setBody( $this->body , $contentType );
 
@@ -57,6 +59,10 @@ class Mailer {
 
                 case 'from':
                     $this->setFrom( $v );
+                    break;
+
+                case 'fromName':
+                    $this->setFromName( $v );
                     break;
 
                 case 'to':
@@ -88,6 +94,16 @@ class Mailer {
      */
     public function setFrom( $from ) {
         $this->from = $from;
+    }
+
+    /**
+     * @param $fromName
+     *
+     * @internal param string $from
+     */
+    public function setFromName($fromName)
+    {
+        $this->fromName = $fromName;
     }
 
     /**
