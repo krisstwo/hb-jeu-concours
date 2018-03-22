@@ -46,6 +46,23 @@ class Quizz extends AbstractType
             }
         };
 
+        // No duplicate FB user id validation
+        $fbIdCallback = function ($fbUserId, ExecutionContextInterface $context, $payload) use ($registrationRepository
+        ) {
+
+            if (empty($fbUserId)) {
+                return;
+            }
+
+            $existingRegistration = $registrationRepository->findOneBy(array('facebookUserId' => $fbUserId));
+
+            if ($existingRegistration) {
+                $context->buildViolation('Vous vous êtes déjà inscrits à notre jeu concours et ne pouvez participer qu\'une seule fois.')
+                        ->atPath('email')
+                        ->addViolation();
+            }
+        };
+
 
 
         // Questions validation
@@ -142,7 +159,7 @@ class Quizz extends AbstractType
                         new Regex(array('pattern' => '/^\d{2}(?:[\s.-]*\d{2}){4}$/'))
                     )
                 ))
-            ->add('facebook_user_id', null)
+            ->add('facebook_user_id', null, array('constraints' => array(new Callback($fbIdCallback))))
             ->add('g-recaptcha-response', null,
                 array('constraints' => array(new Callback($recaptchaCallback))))
             ->add('cgv', null, array('required' => true));
