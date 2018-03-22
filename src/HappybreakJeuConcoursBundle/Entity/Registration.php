@@ -87,7 +87,7 @@ class Registration
     /**
      * @var string
      *
-     * @ORM\Column(name="tracking_information", type="text")
+     * @ORM\Column(name="tracking_information", type="text", nullable=true)
      */
     private $trackingInformation;
 
