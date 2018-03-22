@@ -103,7 +103,7 @@
                                         déconnecter</a>
                                 </div>
                             </div>
-                        {% else %}
+                        {% elseif isFacebookEnabled %}
                             <div class="col-md-4 col-md-offset-4">
                                 <a href="{{ path('happybreak_jeu_concours_facebook_login') }}"
                                    class="btn btn-block btn-fb">

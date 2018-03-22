@@ -32,6 +32,7 @@ parameters:
     hashids_salt : happybreak
 
     # Facebook
+    facebook_enable: false
     facebook_app_id: ~
     facebook_app_secret: ~
     facebook_share_url: ~
