@@ -147,7 +147,7 @@ class DefaultController extends Controller
             } else {
                 return new JsonResponse(array(
                     'error' => 'Données invalides',
-                    'details' => (string)$form->getErrors(true)
+                    'details' => str_replace('ERROR: ', '', (string)$form->getErrors(true))
                 ));
             }
         }
