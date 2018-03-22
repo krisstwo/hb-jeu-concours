@@ -18,7 +18,7 @@
             // Capture the current url query
             var query = window.location.search.substring(1);
 
-            var iframe = $('<iframe frameborder="0" scrolling="no" onload="resizeIframe(this)" style="min-width: 100%;" src="http://happy-break-jeu-concours.lo/web/' + (query.length ? '?' + query : '') + '"></iframe>');
+            var iframe = $('<iframe frameborder="0" scrolling="no" onload="resizeIframe(this)" style="min-width: 100%;" src="' + window.location.href.replace('/wrapper.html', '/') + (query.length ? '?' + query : '') + '"></iframe>');
 
             $(iframe).load(function () {
                 resizeIframe(this);
