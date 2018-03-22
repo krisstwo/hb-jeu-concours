@@ -147,6 +147,16 @@
             }).join(' '));
         });
 
+        $('#birthday-picker').birthdayPicker({
+            sizeClass: 'form-control',
+            dateFormat: 'littleEndian',
+            monthFormat: 'number',
+            defaultDate: $('form.form-register #birthday').val(),
+            callback: function (dateString) {
+                $('form.form-register #birthday').val(dateString);
+            }
+        });
+
         $.validator.addMethod(
             'phoneNumber',
             function (value, element) {
@@ -164,6 +174,7 @@
         );
 
         $('form.form-register').validate({
+            ignore: [], // Hidden elements
             rules: {
                 civility: {
                     required: true
@@ -175,6 +186,7 @@
                     required: true
                 },
                 birthday: {
+                    required: true,
                     frenchDate: true
                 },
                 email: {

@@ -155,11 +155,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="birthday" class="col-sm-4 control-label">Date de naissance :</label>
-                                <div class="col-sm-3">
-                                    <input type="date" class="form-control" id="birthday" name="birthday"
-                                           placeholder="jj/mm/aaaa"
+                                <label for="birthday" class="col-sm-4 control-label">Date de naissance* :</label>
+                                <div class="col-sm-5">
+                                    <input type="hidden" id="birthday" name="birthday"
                                            value="{{ facebookUserData ? facebookUserData.birthday }}">
+                                    <div id="birthday-picker"></div>
                                 </div>
                             </div>
                             <div class="form-group phone-compound">
@@ -167,11 +167,11 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="phone_country_code"
-                                               name="phone_country_code" size="4" maxlength="4" value="+33" >
+                                               name="phone_country_code" size="4" maxlength="4" value="+33" placeholder="+33" >
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="phone" name="phone" size="14"
-                                               maxlength="14">
+                                               maxlength="14" placeholder="06 12 34 56 78">
                                     </div>
                                 </div>
                             </div>
