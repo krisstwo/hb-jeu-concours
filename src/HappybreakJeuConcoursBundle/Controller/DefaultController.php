@@ -19,6 +19,8 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends Controller
@@ -28,6 +30,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $this->getSession();
+
         $questions = $this->getDoctrine()->getRepository('HappybreakJeuConcoursBundle:Question')->findBy(array(
             'isEnabled' => true
         ));
@@ -237,5 +241,16 @@ class DefaultController extends Controller
         }
 
         return new Response("Action not allowed", 400);
+    }
+
+    /**
+     * @return Session
+     */
+    private function getSession()
+    {
+        $session = new Session(! empty(session_id()) ? new PhpBridgeSessionStorage() : null);
+        ! $session->isStarted() && $session->start();
+
+        return $session;
     }
 }

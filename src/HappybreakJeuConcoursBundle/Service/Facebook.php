@@ -75,7 +75,7 @@ class Facebook
      */
     private function getSession()
     {
-        $session = new Session(new PhpBridgeSessionStorage());
+        $session = new Session(! empty(session_id()) ? new PhpBridgeSessionStorage() : null);
         ! $session->isStarted() && $session->start();
 
         return $session;
