@@ -9,6 +9,7 @@ namespace HappybreakJeuConcoursBundle\Controller;
 use Facebook\Exceptions\FacebookSDKException;
 use HappybreakJeuConcoursBundle\Exception\ExistingShare;
 use HappybreakJeuConcoursBundle\Form\EmailShare;
+use HappybreakJeuConcoursBundle\Form\FacebookShare;
 use HappybreakJeuConcoursBundle\Form\Quizz;
 use HappybreakJeuConcoursBundle\Form\SaveQuizzState;
 use Psr\Log\LoggerInterface;
@@ -18,6 +19,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends Controller
 {
@@ -74,7 +76,9 @@ class DefaultController extends Controller
             'quizzState' => $registrationService->getQuizzCurrentState(),
             'facebookUserData' => $facebookUserData,
             'facebookLogoutUrl' => $facebookLogoutUrl,
-            'recaptchaSiteKey' => $this->container->getParameter('recaptcha_site_key')
+            'recaptchaSiteKey' => $this->container->getParameter('recaptcha_site_key'),
+            'facebookAppId' => $this->container->getParameter('facebook_app_id'),
+            'facebookShareUrl' => ! empty($this->container->getParameter('facebook_share_url')) ? $this->container->getParameter('facebook_share_url') : $this->generateUrl('happybreak_jeu_concours_homepage', array(), UrlGeneratorInterface::ABSOLUTE_URL)
         ));
     }
 
@@ -185,6 +189,43 @@ class DefaultController extends Controller
                         'error' => 'Invitation déjà envoyée, merci de choisir une adresse email.'
                     ));
                 }
+
+                return new JsonResponse(array());
+            } else {
+                return new JsonResponse(array(
+                    'error' => 'Données invalides',
+                    'details' => (string)$form->getErrors(true)
+                ));
+            }
+        }
+
+        return new Response("Action not allowed", 400);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function ajaxFacebookShareAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            /**
+             * @var $shareService \HappybreakJeuConcoursBundle\Service\Share
+             */
+            $shareService = $this->get('happybreak_jeu_concours.share');
+
+            /**
+             * @var Form $form
+             */
+            $form = $this->get('form.factory')->createNamedBuilder('', FacebookShare::class, array(),
+                array('container' => $this->container, 'allow_extra_fields' => true))->getForm();
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+
+                $shareService->shareToFacebook($data);
 
                 return new JsonResponse(array());
             } else {

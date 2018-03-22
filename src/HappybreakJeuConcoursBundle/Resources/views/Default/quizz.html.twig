@@ -217,7 +217,7 @@
                         <div class="col-md-8 col-md-offset-2">
 
                             <p class="text-size-2 text-center congrats">
-                                <strong>Félicitations <span class="text-yellow">Jhon Doe</span></strong>
+                                <strong>Félicitations <span class="text-yellow"></span></strong>
                             </p>
                             <p>&nbsp;</p>
                             <p class="text-center text-size-1">Vous êtes désormais inscrit à notre grand tirage au sort
@@ -243,7 +243,7 @@
                                     <i class="fa fa-facebook-square fa-3x" style="color: #3b5998; font-size: 5em; margin-right: 25px; vertical-align: middle;"></i>
                                     <img src="{% image '@HappybreakJeuConcoursBundle/Resources/public/img/chance-fb.png' %}{{ asset_url }}{% endimage %}" width="132" height="60"/>
                                     <p>&nbsp;</p>
-                                    <a href="#" class="btn btn-hb btn-md btn-upper btn-bold">Je partage</a>
+                                    <a href="#" class="btn btn-hb btn-md btn-upper btn-bold btn-share-fb" data-share-url="{{ facebookShareUrl }}" data-ajax-endpoint="{{ path('happybreak_jeu_concours_ajax_facebook_share') }}" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>">Je partage</a>
                                 </div>
                                 <div class="col-sm-8">
                                     <h3>
@@ -276,6 +276,27 @@
                             </div>
                         </div>
                     </div>
+                    <script type="text/javascript">
+                        window.fbAsyncInit = function () {
+                            FB.init({
+                                appId: '{{ facebookAppId }}',
+                                autoLogAppEvents: true,
+                                xfbml: true,
+                                version: 'v2.12'
+                            });
+                        };
+
+                        (function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) {
+                                return;
+                            }
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = "https://connect.facebook.net/en_US/sdk.js";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));
+                    </script>
                 </div>
             </div>
 

@@ -47,6 +47,12 @@ class Share
         $this->mailer    = $mailer;
     }
 
+    /**
+     * @param $data
+     *
+     * @throws ExistingShare
+     * @throws \Exception
+     */
     public function shareToEmail($data)
     {
         /**
@@ -89,5 +95,40 @@ class Share
 
         $this->em->persist($share);
         $this->em->flush();
+    }
+
+    /**
+     * @param $data
+     *
+     * @throws \Exception
+     */
+    public function shareToFacebook($data)
+    {
+        /**
+         * @var $registration \HappybreakJeuConcoursBundle\Entity\Registration
+         */
+        $registration = $this->em->getRepository('HappybreakJeuConcoursBundle:Registration')->find($data['registration']);
+
+        if ( ! $registration) {
+            throw new \Exception('Registration not found');
+        }
+
+        // Record one time only
+        $existingShare = $this->em->getRepository('HappybreakJeuConcoursBundle:Share')->findOneBy(array(
+            'registration' => $registration->getId(),
+            'type' => ShareEntity::SHARE_TYPE_FB,
+            'target' => $data['target']
+        ));
+
+        if ( ! $existingShare) {
+            //Log share
+            $share = new ShareEntity();
+            $share->setRegistration($registration);
+            $share->setType(ShareEntity::SHARE_TYPE_FB);
+            $share->setTarget($data['target']);
+
+            $this->em->persist($share);
+            $this->em->flush();
+        }
     }
 }

@@ -34,6 +34,7 @@ parameters:
     # Facebook
     facebook_app_id: ~
     facebook_app_secret: ~
+    facebook_share_url: ~
 
     # Recaptcha
     recaptcha_site_key: ~

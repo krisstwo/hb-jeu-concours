@@ -324,6 +324,44 @@
             }
 
         });
+
+        $('.btn-share-fb').click(function (e) {
+            e.preventDefault();
+            var btn = this;
+
+            $(btn).button('loading');
+
+            FB.ui(
+                {
+                    method: 'share',
+                    href: $(this).data('share-url')
+                }, function (response) {
+
+                    if (!response.error_message) {
+                        $.ajax({
+                            url: $(btn).data('ajax-endpoint'),
+                            type: 'POST',
+                            data: {
+                                'registration': $('input[name="registration"]').val(),
+                                'target': $(btn).data('share-url')
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result && result.error)
+                                    return;
+
+                                $('#modal-flash-success .content').html('Partage enregistré !');
+                                $('#modal-flash-success').modal('show');
+                            },
+                            complete: function () {
+                                $(btn).button('reset');
+                            }
+                        });
+                    } else {
+                        $(btn).button('reset');
+                    }
+                });
+        });
     });
 
 })(jQuery);
