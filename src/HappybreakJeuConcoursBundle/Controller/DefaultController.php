@@ -48,7 +48,7 @@ class DefaultController extends Controller
                     'first_name' => $userGraph->getFirstName(),
                     'last_name' => $userGraph->getLastName(),
                     'email' => $userGraph->getEmail(),
-                    'birthday' => $userGraph->getBirthday()->format('dmY'),
+                    'birthday' => $userGraph->getBirthday()->format('Y-m-d'),
                     'id' => $userGraph->getId()
                 );
 
