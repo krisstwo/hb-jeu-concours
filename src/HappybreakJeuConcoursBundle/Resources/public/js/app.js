@@ -249,8 +249,12 @@
                         if (result && result.error)
                             return;
 
+                        // Save created registration id
                         if (result.registration)
                             $('input[name="registration"]').val(result.registration);
+
+                        // Put the first name in next page title
+                        $('.congrats .text-yellow').text($('form.form-register #first_name').val());
 
                         stepTo(4);
                     },

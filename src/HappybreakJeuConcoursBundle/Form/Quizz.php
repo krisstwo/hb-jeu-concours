@@ -40,7 +40,7 @@ class Quizz extends AbstractType
             $existingRegistration = $registrationRepository->findOneBy(array('email' => $email));
 
             if ($existingRegistration) {
-                $context->buildViolation('Cette adresse email est déjà inscrite, merci d\'utiliser une autre.')
+                $context->buildViolation('Vous vous êtes déjà inscrits à notre jeu concours et ne pouvez participer qu\'une seule fois.')
                         ->atPath('email')
                         ->addViolation();
             }
