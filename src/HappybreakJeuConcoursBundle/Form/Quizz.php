@@ -77,6 +77,11 @@ class Quizz extends AbstractType
                         ->addViolation();
             }
 
+            // Validate Recaptcha only if no other violations detected (to prevent duplicate error from G)
+            if ( ! empty($context->getViolations())) {
+                return;
+            }
+
             $response = Request::post($container->getParameter('recaptcha_validation_endpoint'), array(),
                 array(
                     'secret' => $container->getParameter('recaptcha_site_secret'),
