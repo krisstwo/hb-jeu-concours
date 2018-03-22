@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
@@ -162,7 +163,8 @@ class Quizz extends AbstractType
             ->add('facebook_user_id', null, array('constraints' => array(new Callback($fbIdCallback))))
             ->add('g-recaptcha-response', null,
                 array('constraints' => array(new Callback($recaptchaCallback))))
-            ->add('cgv', null, array('required' => true));
+            ->add('cgv', null, array('required' => true))
+            ->add('newsletter', NumberType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
