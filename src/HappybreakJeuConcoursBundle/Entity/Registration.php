@@ -78,6 +78,13 @@ class Registration
     private $facebookUserId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="tracking_information", type="text")
+     */
+    private $trackingInformation;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="creation_date", type="datetime")
@@ -292,6 +299,22 @@ class Registration
     public function setFacebookUserId($facebookUserId)
     {
         $this->facebookUserId = $facebookUserId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTrackingInformation()
+    {
+        return $this->trackingInformation;
+    }
+
+    /**
+     * @param string $trackingInformation
+     */
+    public function setTrackingInformation($trackingInformation)
+    {
+        $this->trackingInformation = $trackingInformation;
     }
 
     /**

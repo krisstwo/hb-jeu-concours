@@ -85,6 +85,8 @@ class Registration
         if(!empty($data['facebook_user_id']))
             $registration->setFacebookUserId($data['facebook_user_id']);
         $registration->setIsNewsletterOptin(isset($data['newsletter']) ? true : false);
+        $registration->setTrackingInformation($data['tracking_information']);
+
         $this->em->persist($registration);
 
         foreach ($data as $key => $value) {

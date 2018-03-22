@@ -27,8 +27,11 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/")
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $this->getSession();
 
@@ -75,6 +78,15 @@ class DefaultController extends Controller
          */
         $registrationService = $this->get('happybreak_jeu_concours.registration');
 
+        // Assign tracking information
+        $trackingInformation = '';
+        $queryParams = $request->query->all();
+        foreach ($queryParams as $key => $value) {
+            if (strpos($key, 'utm_') === 0) {
+                $trackingInformation .= $key . '=' . $value . "\n";
+            }
+        }
+
         return $this->render('HappybreakJeuConcoursBundle:Default:quizz.html.twig', array(
             'questions' => $questions,
             'quizzState' => $registrationService->getQuizzCurrentState(),
@@ -83,7 +95,8 @@ class DefaultController extends Controller
             'facebookLogoutUrl' => $facebookLogoutUrl,
             'recaptchaSiteKey' => $this->container->getParameter('recaptcha_site_key'),
             'facebookAppId' => $this->container->getParameter('facebook_app_id'),
-            'facebookShareUrl' => ! empty($this->container->getParameter('facebook_share_url')) ? $this->container->getParameter('facebook_share_url') : $this->generateUrl('happybreak_jeu_concours_homepage', array(), UrlGeneratorInterface::ABSOLUTE_URL)
+            'facebookShareUrl' => ! empty($this->container->getParameter('facebook_share_url')) ? $this->container->getParameter('facebook_share_url') : $this->generateUrl('happybreak_jeu_concours_homepage', array(), UrlGeneratorInterface::ABSOLUTE_URL),
+            'trackingInformation' => $trackingInformation
         ));
     }
 
