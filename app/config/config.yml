@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@HappybreakJeuConcoursBundle/Resources/config/services.yml" }
+    - { resource: "@HappybreakJeuConcoursAdminBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -11,7 +12,7 @@ parameters:
 
 framework:
     #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -157,3 +158,20 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+sonata_admin:
+    title: 'Happybreak'
+    title_logo: 'https://www.happybreak.com/sites/default/files/favicons/favicon-96x96.png'
+    show_mosaic_button: false
+    dashboard:
+        groups:
+            default:
+                label:                ~
+                label_catalogue:      ~
+                keep_open:            true

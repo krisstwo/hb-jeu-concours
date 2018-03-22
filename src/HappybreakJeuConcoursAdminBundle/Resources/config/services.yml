@@ -1,0 +1,16 @@
+services:
+#    happybreak_jeu_concours_admin.example:
+#        class: HappybreakJeuConcoursAdminBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    admin.registration:
+          class: HappybreakJeuConcoursAdminBundle\Admin\Registration
+          arguments: [~, HappybreakJeuConcoursBundle\Entity\Registration, ~]
+          tags:
+              - { name: sonata.admin, manager_type: orm, label: Registrations }
+          public: true
+    admin.shares:
+              class: HappybreakJeuConcoursAdminBundle\Admin\Share
+              arguments: [~, HappybreakJeuConcoursBundle\Entity\Share, ~]
+              tags:
+                  - { name: sonata.admin, manager_type: orm, label: Shares }
+              public: true

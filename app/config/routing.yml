@@ -1,3 +1,11 @@
+happybreak_jeu_concours_admin:
+    resource: "@HappybreakJeuConcoursAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
 happybreak_jeu_concours:
     resource: "@HappybreakJeuConcoursBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sonata_admin:
+    resource: "routes/sonata_admin.yml"
     prefix:   /

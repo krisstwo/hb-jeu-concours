@@ -13,7 +13,8 @@
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
-            "HappybreakJeuConcoursBundle\\": "src/HappybreakJeuConcoursBundle"
+            "HappybreakJeuConcoursBundle\\": "src/HappybreakJeuConcoursBundle",
+            "HappybreakJeuConcoursAdminBundle\\": "src/HappybreakJeuConcoursAdminBundle"
         },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
@@ -36,6 +37,8 @@
         "oyejorge/less.php": "v1.7.0.14",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
+        "sonata-project/admin-bundle": "^3.23",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.1",
         "symfony/assetic-bundle": "^2.8",
         "symfony/monolog-bundle": "^3.1.0",
         "symfony/polyfill-apcu": "^1.0",

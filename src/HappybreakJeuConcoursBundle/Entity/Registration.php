@@ -99,6 +99,13 @@ class Registration
     private $code;
 
     /**
+     * @var Share[]
+     *
+     * @ORM\OneToMany(targetEntity="HappybreakJeuConcoursBundle\Entity\Share", mappedBy="registration")
+     */
+    private $shares;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="creation_date", type="datetime")
@@ -361,6 +368,30 @@ class Registration
     public function setCode($code)
     {
         $this->code = $code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShares()
+    {
+        return $this->shares;
+    }
+
+    /**
+     * @param mixed $shares
+     */
+    public function setShares($shares)
+    {
+        $this->shares = $shares;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalShares()
+    {
+        return count($this->shares);
     }
 
     /**
