@@ -145,6 +145,17 @@ class Quizz extends AbstractType
                 array('required' => true, 'constraints' => array(new Callback($emailCallback))))
             ->add('birthday', null,
                 array('required' => true, 'constraints' => array(new DateTime(array('format' => 'Y-m-d')))))
+            ->add
+            ($builder->create('birthday', TextType::class, array('required' => true, 'constraints' => array(new DateTime(array('format' => 'Y-m-d')))))
+                     ->addModelTransformer(new CallbackTransformer(
+                         function ($valueOut) {
+                             return $valueOut;
+                         },
+                         function ($valueIn) {
+                             return date_create_from_format('Y-m-d', $valueIn);
+                         }
+                     ))
+            )
             ->add('phone_country_code', null,
                 array(
                     'required' => true,

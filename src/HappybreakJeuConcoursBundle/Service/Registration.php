@@ -8,6 +8,7 @@ namespace HappybreakJeuConcoursBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use DrewM\MailChimp\MailChimp;
+use HappybreakJeuConcoursBundle\Entity\Code;
 use HappybreakJeuConcoursBundle\Entity\Registration as RegistrationEntity;
 use HappybreakJeuConcoursBundle\Entity\RegistrationQuizzValue;
 use Psr\Log\LoggerInterface;
@@ -81,11 +82,27 @@ class Registration
         $registration->setFirstName($data['first_name']);
         $registration->setLastName($data['last_name']);
         $registration->setEmail($data['email']);
+        $registration->setBirthday($data['birthday']);
         $registration->setPhone($data['phone_country_code'] . ' ' . $data['phone']);
         if(!empty($data['facebook_user_id']))
             $registration->setFacebookUserId($data['facebook_user_id']);
         $registration->setIsNewsletterOptin(isset($data['newsletter']) ? true : false);
         $registration->setTrackingInformation($data['tracking_information']);
+
+        // Assign a vacant code to this registration
+        /**
+         * @var $code Code
+         */
+        $code = $this->em->getRepository('HappybreakJeuConcoursBundle:Code')->findOneUnused();
+        if ($code) {
+            $registration->setCode($code->getCode());
+
+            $code->setIsUsed(true);
+            $this->em->persist($code);
+        } else {
+            // Alert admin
+            $this->logger->error('No more vacant codes, registration : ' . $registration->getId());
+        }
 
         $this->em->persist($registration);
 
@@ -127,7 +144,9 @@ class Registration
                     'status' => 'subscribed',
                     'merge_fields' => array(
                         'FNAME' => $registration->getFirstName(),
-                        'LNAME' => $registration->getLastName()
+                        'LNAME' => $registration->getLastName(),
+                        'BIRTHDAY' => $registration->getBirthday()->format('m/d'),
+                        'CODE' => $registration->getCode()
                     )
                 ));
 
@@ -135,6 +154,8 @@ class Registration
                 $this->logger->debug('MailChimp : ' . print_r($result, true));
             } else {
                 $this->logger->error('MailChimp : ' . $MailChimp->getLastError());
+                $this->logger->error('MailChimp last request : ' . print_r($MailChimp->getLastRequest(), true));
+                $this->logger->error('MailChimp last response : ' . print_r($MailChimp->getLastResponse(), true));
             }
         }
 

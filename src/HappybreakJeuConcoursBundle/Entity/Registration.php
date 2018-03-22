@@ -50,6 +50,13 @@ class Registration
     private $email;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="birthday", type="date")
+     */
+    private $birthday;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=255)
@@ -83,6 +90,13 @@ class Registration
      * @ORM\Column(name="tracking_information", type="text")
      */
     private $trackingInformation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=255)
+     */
+    private $code;
 
     /**
      * @var \DateTime
@@ -222,6 +236,22 @@ class Registration
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @param \DateTime $birthday
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+    }
+
+    /**
      * Set phone
      *
      * @param string $phone
@@ -315,6 +345,22 @@ class Registration
     public function setTrackingInformation($trackingInformation)
     {
         $this->trackingInformation = $trackingInformation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
     }
 
     /**
