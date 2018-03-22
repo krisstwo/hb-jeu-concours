@@ -74,11 +74,17 @@ class Share
         if($existingShare)
             throw new ExistingShare(sprintf('Share existing for registration %s and email %s', $registration->getId(), $data['share-email']));
 
+        $subjectTags = array(
+            '{first-name}' => $registration->getFirstName(),
+            '{last-name}' => $registration->getLastName()
+        );
+
         //Send email
         $mailConfig = array(
             'to' => $data['share-email'],
             'template' => 'HappybreakJeuConcoursBundle:Email:share.html.twig',
-            'subject' => $this->container->getParameter('share_email_subject'),
+            'subject' => str_replace(array_keys($subjectTags), array_values($subjectTags),
+                $this->container->getParameter('share_email_subject')),
             'from' => $this->container->getParameter('share_email_from_address'),
             'fromName' => $this->container->getParameter('share_email_from_name'),
             'params' => array(
