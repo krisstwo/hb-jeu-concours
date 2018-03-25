@@ -99,6 +99,13 @@ class Registration
     private $code;
 
     /**
+     * @var RegistrationQuizzValue[]
+     *
+     * @ORM\OneToMany(targetEntity="HappybreakJeuConcoursBundle\Entity\RegistrationQuizzValue", mappedBy="registration")
+     */
+    private $quizzValues;
+
+    /**
      * @var Share[]
      *
      * @ORM\OneToMany(targetEntity="HappybreakJeuConcoursBundle\Entity\Share", mappedBy="registration")
@@ -373,17 +380,17 @@ class Registration
     /**
      * @return mixed
      */
-    public function getShares()
+    public function getQuizzValues()
     {
-        return $this->shares;
+        return $this->quizzValues;
     }
 
     /**
-     * @param mixed $shares
+     * @return mixed
      */
-    public function setShares($shares)
+    public function getShares()
     {
-        $this->shares = $shares;
+        return $this->shares;
     }
 
     /**

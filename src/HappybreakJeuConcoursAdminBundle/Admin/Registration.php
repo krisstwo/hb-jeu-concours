@@ -49,6 +49,11 @@ class Registration extends AbstractAdmin
             ->add('facebookUserId')
             ->add('trackingInformation')
             ->add('code')
+            ->add('quizzValues', 'sonata_type_collection', array(
+                'associated_property' => function (\HappybreakJeuConcoursBundle\Entity\RegistrationQuizzValue $registrationQuizzValue) {
+                    return sprintf('%s: %s', $registrationQuizzValue->getQuestion()->getTitle(), $registrationQuizzValue->getQuestionValue()->getTitle());
+                }
+            ))
             ->add('shares', 'sonata_type_collection', array(
                 'associated_property' => function (\HappybreakJeuConcoursBundle\Entity\Share $share) {
                     return sprintf('%s: %s, %s', $share->getType(), $share->getTarget(),
@@ -65,13 +70,6 @@ class Registration extends AbstractAdmin
                        ->add('lastName')
                        ->add('email');
     }
-
-//    protected function configureFormFields(FormMapper $formMapper)
-//    {
-//        $formMapper->add('name', 'text')
-//                   ->add('code', 'text')
-//                   ->add('logo', 'text');
-//    }
 
     protected function configureRoutes(RouteCollection $collection)
     {
