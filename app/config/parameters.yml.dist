@@ -24,6 +24,7 @@ parameters:
     mailchimp_enable: false
     mailchimp_api_key: ~
     mailchimp_list_id: ~
+    mailchimp_optin_extra_list_id: ~
 
     # Share
     share_email_from_address : ~

@@ -135,10 +135,14 @@ class Registration
 
         //MailChimp
 
-        if ($this->container->hasParameter('mailchimp_enable') && $this->container->getParameter('mailchimp_enable')) {
+        if ($this->container->getParameter('mailchimp_enable')) {
+
             $MailChimp = new MailChimp($this->container->getParameter('mailchimp_api_key'));
 
-            $result = $MailChimp->post(sprintf('lists/%s/members', $this->container->getParameter('mailchimp_list_id')),
+            // Subscribe to main list
+
+            $result = $MailChimp->post(sprintf('lists/%s/members',
+                $this->container->getParameter('mailchimp_list_id')),
                 array(
                     'email_address' => $registration->getEmail(),
                     'status' => 'subscribed',
@@ -151,11 +155,35 @@ class Registration
                 ));
 
             if ($MailChimp->success()) {
-                $this->logger->debug('MailChimp : ' . print_r($result, true));
+                $this->logger->debug('MailChimp main list contact add : ' . print_r($result, true));
             } else {
                 $this->logger->error('MailChimp : ' . $MailChimp->getLastError());
                 $this->logger->error('MailChimp last request : ' . print_r($MailChimp->getLastRequest(), true));
                 $this->logger->error('MailChimp last response : ' . print_r($MailChimp->getLastResponse(), true));
+            }
+
+            // Subscribe to optin list
+            if ($registration->getIsNewsletterOptin()) {
+                $result = $MailChimp->post(sprintf('lists/%s/members',
+                    $this->container->getParameter('mailchimp_optin_extra_list_id')),
+                    array(
+                        'email_address' => $registration->getEmail(),
+                        'status' => 'subscribed',
+                        'merge_fields' => array(
+                            'FNAME' => $registration->getFirstName(),
+                            'LNAME' => $registration->getLastName(),
+                            'BIRTHDAY' => $registration->getBirthday()->format('m/d'),
+                            'CODE' => $registration->getCode()
+                        )
+                    ));
+
+                if ($MailChimp->success()) {
+                    $this->logger->debug('MailChimp optin list contact add : ' . print_r($result, true));
+                } else {
+                    $this->logger->error('MailChimp : ' . $MailChimp->getLastError());
+                    $this->logger->error('MailChimp last request : ' . print_r($MailChimp->getLastRequest(), true));
+                    $this->logger->error('MailChimp last response : ' . print_r($MailChimp->getLastResponse(), true));
+                }
             }
         }
 
