@@ -29,6 +29,7 @@ BOOTSTRAP TWEAKS
 
 a.btn {
     text-decoration: none;
+    white-space: normal;
 }
 
 .btn.btn-hb {
@@ -104,7 +105,7 @@ CUSTOM ELEMENTS
 .step-1 .polar-bg {
     margin-left: -220px;
     margin-right: -220px;
-    min-height: 856px;
+    min-height: 855px;
 }
 
 .step-1 .polar-content {
@@ -112,6 +113,11 @@ CUSTOM ELEMENTS
     margin: auto;
     padding-top: 60px;
     padding-bottom: 20px;
+}
+
+.step-1 .step-1-title {
+    max-width: 100%;
+    height: auto;
 }
 
 .text-red {

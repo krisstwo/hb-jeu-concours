@@ -7,8 +7,9 @@
                     <div class="polar-bg"
                          style="background-image: url('{% image '@HappybreakJeuConcoursBundle/Resources/public/img/welcome-bg.png' %}{{ asset_url }}{% endimage %}')">
                         <div class="polar-content">
-                            <h1><span style="font-size: 1.6em;font-weight: bold;">On vous offre</span>
-                                <br/><span style="font-size: 2em;font-weight: bold;">1 an d’hôtels</span></h1>
+                            <img class="step-1-title"
+                                 src="{% image '@HappybreakJeuConcoursBundle/Resources/public/img/step-1-title.png' %}{{ asset_url }}{% endimage %}"
+                                 width="609" height="188"/>
                             <p>&nbsp;</p>
                             <hr class="hr-small">
                             <p>&nbsp;</p>
@@ -91,28 +92,30 @@
                     <a href="#" class="btn-back"><i class="fa fa-chevron-left"></i> Retour</a>
                     <h2 class="text-size-1">Pour participer à notre jeu concours et tenter de gagner 1 an d’hôtels,
                         merci de remplir les informations suivantes :</h2>
-                    <p>&nbsp;</p>
-                    <div class="row">
+                    {% if isFacebookEnabled %}
+                        <p>&nbsp;</p>
+                        <div class="row">
 
-                        {% if facebookUserData %}
-                            <div class="col-md-8 col-md-offset-2">
-                                <div class="alert alert-info">
-                                    <i class="fa fa-facebook-square fa-2x" style="vertical-align: sub;"></i>&nbsp;&nbsp;Connecté
-                                    en tant que
-                                    : {{ facebookUserData.name }} <a class="alert-link" href="{{ facebookLogoutUrl }}">Se
-                                        déconnecter</a>
+                            {% if facebookUserData %}
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="alert alert-info">
+                                        <i class="fa fa-facebook-square fa-2x" style="vertical-align: sub;"></i>&nbsp;&nbsp;Connecté
+                                        en tant que
+                                        : {{ facebookUserData.name }} <a class="alert-link" href="{{ facebookLogoutUrl }}">Se
+                                            déconnecter</a>
+                                    </div>
                                 </div>
-                            </div>
-                        {% elseif isFacebookEnabled %}
-                            <div class="col-md-4 col-md-offset-4">
-                                <a href="{{ path('happybreak_jeu_concours_facebook_login') }}"
-                                   class="btn btn-block btn-fb">
-                                    <i class="fa fa-facebook"></i>&nbsp;Connexion avec Facebook
-                                </a>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <p>&nbsp;</p>
+                            {% else %}
+                                <div class="col-md-4 col-md-offset-4">
+                                    <a href="{{ path('happybreak_jeu_concours_facebook_login') }}"
+                                       class="btn btn-block btn-fb">
+                                        <i class="fa fa-facebook"></i>&nbsp;Connexion avec Facebook
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <p>&nbsp;</p>
+                    {% endif %}
                     <div class="row">
 
                         <form class="form-register form-horizontal col-md-8 col-md-offset-2" action="{{ path('happybreak_jeu_concours_ajax_submit_quizz') }}">
