@@ -90,6 +90,7 @@ class DefaultController extends Controller
         return $this->render('HappybreakJeuConcoursBundle:Default:quizz.html.twig', array(
             'questions' => $questions,
             'quizzState' => $registrationService->getQuizzCurrentState(),
+            'termsAndConditionsURL' => $this->container->getParameter('terms_and_conditions_url'),
             'isFacebookEnabled' => $this->container->getParameter('facebook_enable'),
             'facebookUserData' => $facebookUserData,
             'facebookLogoutUrl' => $facebookLogoutUrl,

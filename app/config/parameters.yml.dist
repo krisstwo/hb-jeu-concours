@@ -41,3 +41,6 @@ parameters:
     recaptcha_site_key: ~
     recaptcha_validation_endpoint: ~
     recaptcha_site_secret: ~
+
+    # Misc
+    terms_and_conditions_url: ~

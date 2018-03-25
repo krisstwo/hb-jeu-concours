@@ -21,7 +21,7 @@
                             <a href="#" class="btn btn-hb btn-lg btn-upper btn-bold btn-start-quizz">Je participe au quizz</a>
                             <p>&nbsp;</p>
                             <p>*Dans la limite de 1 nuit d’hôtel par semaine pendant 52 semaines</p>
-                            <a href="#">Voir le règlement</a>
+                            <a href="{{ termsAndConditionsURL }}" target="_blank">Voir le règlement</a>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                     </p>
 
                     <p class="text-center">
-                        <a href="#">Voir le règlement</a>
+                        <a href="{{ termsAndConditionsURL }}" target="_blank">Voir le règlement</a>
                     </p>
                     {% if quizzState %}
                         <script type="text/javascript">
@@ -206,7 +206,7 @@
                         <a href="#" class="btn btn-hb btn-lg btn-upper btn-bold btn-submit-form" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>">Je participe au jeu</a>
                         <br>
                         <br>
-                        <a href="#">Voir le règlement</a>
+                        <a href="{{ termsAndConditionsURL }}" target="_blank">Voir le règlement</a>
                     </p>
                     <p>
                         *Champs requis obligatoire
@@ -275,6 +275,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <br/>
+                            <p class="text-center">
+                                <a href="{{ termsAndConditionsURL }}" target="_blank">Voir le règlement</a>
+                            </p>
                         </div>
                     </div>
                     <script type="text/javascript">
