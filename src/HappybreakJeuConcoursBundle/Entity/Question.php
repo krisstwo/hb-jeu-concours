@@ -53,6 +53,7 @@ class Question
      * @var QuestionOption[]
      *
      * @ORM\OneToMany(targetEntity="HappybreakJeuConcoursBundle\Entity\QuestionOption", mappedBy="question")
+     * @ORM\OrderBy({"ordering" = "ASC", "id" = "ASC"})
      */
     private $options;
 

@@ -14,3 +14,15 @@ services:
               tags:
                   - { name: sonata.admin, manager_type: orm, label: Shares }
               public: true
+    admin.question:
+          class: HappybreakJeuConcoursAdminBundle\Admin\Question
+          arguments: [~, HappybreakJeuConcoursBundle\Entity\Question, ~]
+          tags:
+              - { name: sonata.admin, manager_type: orm, label: Questions }
+          public: true
+    admin.question-option:
+          class: HappybreakJeuConcoursAdminBundle\Admin\QuestionOption
+          arguments: [~, HappybreakJeuConcoursBundle\Entity\QuestionOption, ~]
+          tags:
+              - { name: sonata.admin, manager_type: orm, label: Options }
+          public: true
