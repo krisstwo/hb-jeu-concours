@@ -106,6 +106,13 @@ class Registration
     private $quizzValues;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="quizz_values_summary", type="text")
+     */
+    private $quizzValuesSummary;
+
+    /**
      * @var Share[]
      *
      * @ORM\OneToMany(targetEntity="HappybreakJeuConcoursBundle\Entity\Share", mappedBy="registration")
@@ -383,6 +390,22 @@ class Registration
     public function getQuizzValues()
     {
         return $this->quizzValues;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQuizzValuesSummary()
+    {
+        return $this->quizzValuesSummary;
+    }
+
+    /**
+     * @param string $quizzValuesSummary
+     */
+    public function setQuizzValuesSummary($quizzValuesSummary)
+    {
+        $this->quizzValuesSummary = $quizzValuesSummary;
     }
 
     /**

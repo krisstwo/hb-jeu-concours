@@ -9,6 +9,8 @@ namespace HappybreakJeuConcoursBundle\Service;
 use Doctrine\ORM\EntityManager;
 use DrewM\MailChimp\MailChimp;
 use HappybreakJeuConcoursBundle\Entity\Code;
+use HappybreakJeuConcoursBundle\Entity\Question;
+use HappybreakJeuConcoursBundle\Entity\QuestionOption;
 use HappybreakJeuConcoursBundle\Entity\Registration as RegistrationEntity;
 use HappybreakJeuConcoursBundle\Entity\RegistrationQuizzValue;
 use Psr\Log\LoggerInterface;
@@ -104,24 +106,36 @@ class Registration
             $this->logger->error('No more vacant codes, registration : ' . $registration->getId());
         }
 
-        $this->em->persist($registration);
-
+        $quizzValuesSummary = '';
         foreach ($data as $key => $value) {
             if (strpos($key, 'question-') === 0) {
                 $registrationQuizzValue = new RegistrationQuizzValue();
                 $registrationQuizzValue->setRegistration($registration);
 
+                /**
+                 * @var $question Question
+                 */
                 $question = $this->em->getRepository('HappybreakJeuConcoursBundle:Question')->find(str_replace('question-',
                     '', $key));
                 $registrationQuizzValue->setQuestion($question);
 
+                /**
+                 * @var $option QuestionOption
+                 */
                 $option = $this->em->getRepository('HappybreakJeuConcoursBundle:QuestionOption')->find(str_replace('option-',
                     '', $value));
                 $registrationQuizzValue->setQuestionValue($option);
 
+                // Record the summary
+                $quizzValuesSummary .= sprintf("#%s : %s\n", $question->getOrdering(), $option->getTitle());
+
                 $this->em->persist($registrationQuizzValue);
             }
         }
+
+        // Save the quizz values summary
+        $registration->setQuizzValuesSummary($quizzValuesSummary);
+        $this->em->persist($registration);
 
         // Doctrine transaction
         $this->em->flush();
