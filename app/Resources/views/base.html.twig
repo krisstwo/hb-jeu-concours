@@ -31,6 +31,9 @@
             {% javascripts '@HappybreakJeuConcoursBundle/Resources/public/js/jquery-birthday-picker.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            {% javascripts '@HappybreakJeuConcoursBundle/Resources/public/js/app.js' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% endblock %}
         {% include 'HappybreakJeuConcoursBundle:Default:partials/system-modals.html.twig' %}
     </body>
