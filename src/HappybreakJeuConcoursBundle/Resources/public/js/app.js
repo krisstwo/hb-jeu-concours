@@ -364,4 +364,11 @@
         });
     });
 
+    $(window).on('load', function (e) {
+        window.parent.postMessage({
+            scrollWidth: document.body.scrollWidth,
+            scrollHeight: document.body.scrollHeight
+        }, '*');
+    });
+
 })(jQuery);
