@@ -19,11 +19,16 @@
             <script src="{{ asset('js/jquery.min.js') }}"></script>
             <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
             <script src="{{ asset('js/bootstrap.js') }}"></script>
-            {% javascripts '@HappybreakJeuConcoursBundle/Resources/public/js/bootstrap-datepicker.core.min.js'
-            '@HappybreakJeuConcoursBundle/Resources/public/js/bootstrap-datepicker.fr.min.js'
-            '@HappybreakJeuConcoursBundle/Resources/public/js/jquery.validate.js'
-            '@HappybreakJeuConcoursBundle/Resources/public/js/jquery-birthday-picker.js'
-            %}
+            {% javascripts '@HappybreakJeuConcoursBundle/Resources/public/js/bootstrap-datepicker.core.min.js' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            {% javascripts '@HappybreakJeuConcoursBundle/Resources/public/js/bootstrap-datepicker.fr.min.js' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            {% javascripts '@HappybreakJeuConcoursBundle/Resources/public/js/jquery.validate.js' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            {% javascripts '@HappybreakJeuConcoursBundle/Resources/public/js/jquery-birthday-picker.js' %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
