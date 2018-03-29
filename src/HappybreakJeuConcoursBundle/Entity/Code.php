@@ -38,14 +38,14 @@ class Code
     /**
      * @var bool
      *
-     * @ORM\Column(name="is_used", type="boolean")
+     * @ORM\Column(name="is_used", type="boolean", options={"default":"0"})
      */
     private $isUsed = false;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creationDate", type="datetime")
+     * @ORM\Column(name="creationDate", type="datetime", options={"default":"CURRENT_TIMESTAMP"})
      */
     private $creationDate;
 
