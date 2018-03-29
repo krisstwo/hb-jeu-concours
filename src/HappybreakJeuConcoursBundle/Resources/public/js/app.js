@@ -364,11 +364,34 @@
         });
     });
 
-    $(window).on('load', function (e) {
+    var postMessage = function () {
         window.parent.postMessage({
             scrollWidth: document.body.scrollWidth,
             scrollHeight: document.body.scrollHeight
         }, '*');
+    };
+
+    $(window).on('load', function (e) {
+        postMessage();
+    });
+
+    var onElementHeightChange = function (elm, callback) {
+        var lastHeight = elm.clientHeight, newHeight;
+        (function run() {
+            newHeight = elm.clientHeight;
+            if (lastHeight != newHeight)
+                callback();
+            lastHeight = newHeight;
+
+            if (elm.onElementHeightChangeTimer)
+                clearTimeout(elm.onElementHeightChangeTimer);
+
+            elm.onElementHeightChangeTimer = setTimeout(run, 200);
+        })();
+    };
+
+    onElementHeightChange(document.body, function (e) {
+        postMessage();
     });
 
 })(jQuery);
