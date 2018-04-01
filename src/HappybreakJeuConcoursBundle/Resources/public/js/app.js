@@ -392,6 +392,7 @@
 
     onElementHeightChange(document.body, function (e) {
         postMessage();
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
     });
 
 })(jQuery);
