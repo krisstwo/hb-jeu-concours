@@ -88,7 +88,8 @@ class Share
             'from' => $this->container->getParameter('share_email_from_address'),
             'fromName' => $this->container->getParameter('share_email_from_name'),
             'params' => array(
-                'registration' => $registration
+                'registration' => $registration,
+                'ctaLink' => $this->container->getParameter('share_email_cta_link')
             )
         );
         $this->mailer->sendMessage($mailConfig, 'text/html');

@@ -30,6 +30,7 @@ parameters:
     share_email_from_address : ~
     share_email_from_name : ~
     share_email_subject :  « {first-name} {last-name} »  vous veut beaucoup de bien
+    share_email_cta_link : https://www.happybreak.com/jeu-un-an-hotels?utm_source=jeu-concours&utm_medium=email&utm_campaign=partage-jc
     hashids_salt : happybreak
 
     # Facebook
