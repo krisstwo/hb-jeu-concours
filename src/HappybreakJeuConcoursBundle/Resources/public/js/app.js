@@ -37,6 +37,9 @@
 
             $('.step').hide();
             $('.step-' + stepIndex).show();
+
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
+            navigationEventMessage();
         };
 
         /**
@@ -364,15 +367,21 @@
         });
     });
 
-    var postMessage = function () {
+    var scrollDimentionsChangeMessage = function () {
         window.parent.postMessage({
             scrollWidth: document.body.scrollWidth,
             scrollHeight: document.body.scrollHeight
         }, '*');
     };
 
+    var navigationEventMessage = function () {
+        window.parent.postMessage({
+            scrollToTop: true
+        }, '*');
+    };
+
     $(window).on('load', function (e) {
-        postMessage();
+        scrollDimentionsChangeMessage();
     });
 
     var onElementHeightChange = function (elm, callback) {
@@ -391,8 +400,7 @@
     };
 
     onElementHeightChange(document.body, function (e) {
-        postMessage();
-        $('html, body').animate({ scrollTop: 0 }, 'fast');
+        scrollDimentionsChangeMessage();
     });
 
 })(jQuery);

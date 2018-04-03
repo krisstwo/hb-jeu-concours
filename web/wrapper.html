@@ -20,11 +20,14 @@
 
             function receiveIframeMessage(event)
             {
-                if(typeof event.data.scrollWidth === 'undefined')
-                    return;
+                if (typeof event.data.scrollWidth !== 'undefined') {
+                    $(iframe).width(event.data.scrollWidth);
+                    $(iframe).height(event.data.scrollHeight);
+                }
 
-                $(iframe).width(event.data.scrollWidth);
-                $(iframe).height(event.data.scrollHeight);
+                if (event.data.scrollToTop === true) {
+                    $('html, body').animate({scrollTop: 0}, 'slow');
+                }
             }
             window.addEventListener('message', receiveIframeMessage, false);
 
