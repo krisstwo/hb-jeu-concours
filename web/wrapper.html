@@ -26,7 +26,7 @@
                 }
 
                 if (event.data.scrollToTop === true) {
-                    $('html, body').animate({scrollTop: 0}, 'slow');
+                    $('html, body').animate({scrollTop: $(iframe).offset().top}, 'slow');
                 }
             }
             window.addEventListener('message', receiveIframeMessage, false);
