@@ -71,6 +71,11 @@ class Registration extends AbstractAdmin
                        ->add('email');
     }
 
+    public function getExportFields()
+    {
+        return ['id', 'civility', 'firstName', 'lastName', 'email', 'birthday', 'phone', 'isNewsletterOptin', 'sessionId', 'facebookUserId', 'trackingInformation', 'code', 'quizzValuesSummary', 'getTotalShares', 'creationDate', 'updateDate'];
+    }
+
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->clearExcept(array('list', 'export', 'show', 'delete'));
