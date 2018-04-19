@@ -43,6 +43,11 @@ class Share extends AbstractAdmin
                        ->add('creationDate');
     }
 
+    public function getExportFields()
+    {
+        return ['id', 'type', 'target', 'registration.email', 'creationDate'];
+    }
+
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->clearExcept(array('list', 'export', 'delete'));
