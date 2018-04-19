@@ -259,6 +259,9 @@
                         // Put the first name in next page title
                         $('.congrats .text-yellow').text($('form.form-register #first_name').val());
 
+                        // Campaign tracking, inject on last screen
+                        $('.step-4').append('<img src="//analytics.digital-metric.com/vwi?t=d9ec412bbd67e9c36c823b4a8860fa4c" alt="" width="1" height="1" />');
+
                         stepTo(4);
                     },
                     complete: function () {
