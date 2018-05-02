@@ -97,7 +97,8 @@ class DefaultController extends Controller
             'recaptchaSiteKey' => $this->container->getParameter('recaptcha_site_key'),
             'facebookAppId' => $this->container->getParameter('facebook_app_id'),
             'facebookShareUrl' => ! empty($this->container->getParameter('facebook_share_url')) ? $this->container->getParameter('facebook_share_url') : $this->generateUrl('happybreak_jeu_concours_homepage', array(), UrlGeneratorInterface::ABSOLUTE_URL),
-            'trackingInformation' => $trackingInformation
+            'trackingInformation' => $trackingInformation,
+            'isGameEnabled' => $this->container->getParameter('game_enable'),
         ));
     }
 

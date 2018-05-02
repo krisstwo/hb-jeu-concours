@@ -20,6 +20,8 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
 
+    game_enable: true
+
     # MailChimp
     mailchimp_enable: false
     mailchimp_api_key: ~
